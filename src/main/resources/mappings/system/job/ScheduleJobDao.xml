@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyh.system.job.dao.ScheduleJobDao">
+
+    <sql id="scheduleJobColumns">
+        a.id AS "id",
+        a.job_name AS "jobName",
+        a.bean_name AS "beanName",
+        a.method_name AS "methodName",
+        a.params AS "params",
+        a.cron_expression AS "cronExpression",
+        a.status AS "status",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.is_del AS "del"
+    </sql>
+
+
+    <select id="get" resultType="ScheduleJob">
+        SELECT
+        <include refid="scheduleJobColumns"/>
+        FROM qrtz_schedule_job a
+        WHERE a.id = #{id}
+    </select>
+
+
+    <select id="findList" resultType="ScheduleJob">
+        SELECT
+        <include refid="scheduleJobColumns"/>
+        FROM qrtz_schedule_job a
+        WHERE a.is_del = #{del}
+        <if test="jobName != null and jobName != ''">AND a.job_name LIKE CONCAT(#{jobName},'%')</if>
+        <if test="beanName != null and beanName != ''">AND a.bean_name = #{beanName}</if>
+    </select>
+
+
+    <select id="findAllList" resultType="ScheduleJob">
+        SELECT
+        <include refid="scheduleJobColumns"/>
+        FROM qrtz_schedule_job a
+        WHERE a.is_del = #{del}
+        ORDER BY a.id
+    </select>
+
+    <insert id="insert" parameterType="ScheduleJob" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO qrtz_schedule_job (
+            id,
+            job_name,
+            bean_name,
+            method_name,
+            params,
+            cron_expression,
+            status,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks,
+            is_del
+        ) VALUES (
+            #{id},
+            #{jobName},
+            #{beanName},
+            #{methodName},
+            #{params},
+            #{cronExpression},
+            #{status},
+            #{createBy.id},
+            #{createDate},
+            #{updateBy.id},
+            #{updateDate},
+            #{remarks},
+            #{del}
+        )
+    </insert>
+
+
+    <update id="update" parameterType="ScheduleJob">
+        UPDATE qrtz_schedule_job
+        <set>
+            <if test="jobName != null">job_name = #{jobName},</if>
+            <if test="beanName != null">bean_name = #{beanName},</if>
+            <if test="methodName != null">method_name = #{methodName},</if>
+            <if test="params != null">params = #{params},</if>
+            <if test="cronExpression != null">cron_expression = #{cronExpression},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateBy != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete" parameterType="ScheduleJob">
+        UPDATE qrtz_schedule_job SET is_del = '1' WHERE id = #{id}
+    </update>
+
+
+
+</mapper>

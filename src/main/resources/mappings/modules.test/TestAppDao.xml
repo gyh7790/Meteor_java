@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyh.modules.test.dao.TestAppDao">
+
+    <sql id="roleColumns">
+        a.id AS "id",
+        a.name AS "name",
+        a.age AS "age",
+        a.create_date AS "createDate",
+        a.del AS "del"
+    </sql>
+
+    <select id="findList" resultType="TestApp">
+        SELECT
+        <include refid="roleColumns"/>
+        FROM test_app a
+    </select>
+
+</mapper>
