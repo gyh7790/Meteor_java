@@ -2,16 +2,25 @@ package com.gyh.system.sys.web;
 
 import com.gyh.common.persistence.model.Page;
 import com.gyh.common.persistence.web.BaseController;
+import com.gyh.common.tools.ListUtils;
 import com.gyh.common.utils.R;
+import com.gyh.system.sys.dto.MenuDto;
 import com.gyh.system.sys.entity.Menu;
+import com.gyh.system.sys.entity.Role;
 import com.gyh.system.sys.service.MenuService;
 import com.gyh.system.sys.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.yaml.snakeyaml.constructor.BaseConstructor;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author gyh
@@ -51,6 +60,25 @@ public class MenuController extends BaseController {
         menu.setId("1");
         List<Menu> resultList = menuService.getNavTree(menuList,menu);
         return R.ok("list",resultList);
+    }
+
+    /**
+     * 查询数据列表
+     * @return
+     */
+    @GetMapping("getNav")
+    public R getNav() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<String> roleId = null;
+        if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
+            roleId = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        }
+        if (ListUtils.isEmpty(roleId)) {
+            return R.error("未能获取角色");
+        }
+        // 角色 非空时 获取菜单
+        List<MenuDto> menuList = menuService.getListByRoles(roleId);
+        return R.ok("list",menuList);
     }
 
     /**

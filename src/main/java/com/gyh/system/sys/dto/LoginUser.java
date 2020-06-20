@@ -1,5 +1,6 @@
 package com.gyh.system.sys.dto;
 
+import com.gyh.system.sys.entity.Role;
 import com.gyh.system.sys.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +20,7 @@ public class LoginUser implements UserDetails, Serializable {
     private String password;
     private String captcha;
 
-    private List<String> roles = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
 
     private Set<? extends GrantedAuthority> authorities;
 
@@ -33,10 +34,10 @@ public class LoginUser implements UserDetails, Serializable {
         this.id=user.getId();
         this.username=user.getLoginName();
         this.password=user.getPassword();
-        this.roles = Arrays.asList("admin","user");
+        this.roles = user.getRoles();
     }
 
-    public LoginUser(User user,List<String> roles){
+    public LoginUser(User user,List<Role> roles){
         this.id=user.getId();
         this.username=user.getLoginName();
         this.password=user.getPassword();
@@ -91,11 +92,11 @@ public class LoginUser implements UserDetails, Serializable {
         return true;
     }
 
-    public List<String> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -108,7 +109,7 @@ public class LoginUser implements UserDetails, Serializable {
         Collection<GrantedAuthority> authorities = new HashSet<>();
         if (roles!=null) {
             roles.stream().forEach(role -> {
-                authorities.add(new SimpleGrantedAuthority(role));
+                authorities.add(new SimpleGrantedAuthority(role.getId()));
             });
         }
         return authorities;

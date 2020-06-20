@@ -4,6 +4,7 @@ import com.gyh.common.persistence.service.CrudService;
 import com.gyh.system.sys.dao.UserDao;
 import com.gyh.system.sys.dto.LoginUser;
 import com.gyh.system.sys.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +16,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService extends CrudService<UserDao,User> implements UserDetailsService {
+
+
+    @Autowired
+    private MenuService menuService;
 
     @Override
     public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException {

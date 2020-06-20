@@ -2,8 +2,13 @@ package com.gyh.config.security;
 
 import com.gyh.common.constant.HttpStatus;
 import com.gyh.common.tools.JsonUtils;
+import com.gyh.common.tools.ListUtils;
 import com.gyh.common.utils.R;
 import com.gyh.system.sys.dto.LoginUser;
+import com.gyh.system.sys.dto.MenuDto;
+import com.gyh.system.sys.entity.Menu;
+import com.gyh.system.sys.entity.Role;
+import com.gyh.system.sys.service.MenuService;
 import com.gyh.system.sys.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +35,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Security(安全框架)  配置
@@ -50,6 +56,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private MenuService menuService;
 
     /**
      * 静态 文件处理
@@ -118,18 +127,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         logger.debug("JwtAuthUser:" + jwtUser.toString());
 
-        List<String> roles = new ArrayList<>();
-        Collection<? extends GrantedAuthority> authorities = jwtUser.getAuthorities();
-        for (GrantedAuthority authority : authorities){
-            roles.add(authority.getAuthority());
+        List<String> roleId = null;
+        // 角色 非空时 获取菜单
+        if (ListUtils.isNotEmpty(jwtUser.getRoles())) {
+            roleId = jwtUser.getRoles().stream().map(Role::getId).collect(Collectors.toList());
         }
-        logger.debug("roles:"+roles);
-        String token = JwtTokenUtils.generateToken(jwtUser.getUsername(), roles, true);
+
+        List<MenuDto> menuList = menuService.getListByRoles(roleId);
+
+        logger.debug("roles:"+roleId);
+        String token = JwtTokenUtils.generateToken(jwtUser.getUsername(), roleId, true);
         logger.debug("token:"+token);
 
         resp.setContentType("application/json;charset=utf-8");
         PrintWriter out = resp.getWriter();
-        out.write(JsonUtils.toStrByJson(R.ok("登录成功").put("token",JwtTokenUtils.TOKEN_PREFIX+token)));
+        out.write(JsonUtils.toStrByJson(R.ok("登录成功").put("token",JwtTokenUtils.TOKEN_PREFIX+token).put("navList",menuList)));
         out.flush();
         out.close();
     };

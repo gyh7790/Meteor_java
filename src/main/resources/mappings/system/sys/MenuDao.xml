@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyh.system.sys.dao.MenuDao">
+
+
+    <sql id="menuColumns">
+        a.id AS "id",
+        a.parent_id AS "parentId",
+        a.parent_ids AS "parentIds",
+        a.name AS "name",
+        a.grade AS "grade",
+        a.sort AS "sort",
+        a.href AS "href",
+        a.target AS "target",
+        a.icon AS "icon",
+        a.is_show AS "show",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.is_del AS "del"
+    </sql>
+
+
+    <select id="get" resultType="Menu">
+        SELECT
+        <include refid="menuColumns"/>
+        FROM sys_menu a
+        WHERE a.id = #{id}
+    </select>
+
+
+    <select id="findList" resultType="Menu">
+        SELECT
+        <include refid="menuColumns"/>
+        FROM sys_menu a
+        WHERE a.is_del = #{del}
+        <if test="parentId != null">AND a.parent_id = #{parentId}</if>
+        <if test="name != null and name != ''">AND a.name = #{name}</if>
+        ORDER BY a.sort
+    </select>
+
+
+    <select id="findAllList" resultType="Menu">
+        SELECT
+        <include refid="menuColumns"/>
+        FROM sys_menu a
+        WHERE a.is_del = #{del}
+        ORDER BY a.id
+    </select>
+
+    <select id="getListByRoles" resultType="com.gyh.system.sys.dto.MenuDto">
+        SELECT
+        <include refid="menuColumns"/>
+        FROM sys_menu a, sys_role_menu srm
+        WHERE a.id = srm.menu_id AND a.is_del = ${DEL_NORMAL}
+        <foreach collection="roles" index="i" open="AND srm.role_id IN (" separator="," close=")">
+            #{roles[${i}]}
+        </foreach>
+        ORDER BY a.sort
+    </select>
+
+
+
+    <insert id="insert" parameterType="Menu" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_menu (
+        id,
+        parent_id,
+        parent_ids,
+        name,
+        sort,
+        href,
+        target,
+        icon,
+        is_show,
+        permission,
+        create_by,
+        create_date,
+        update_by,
+        update_date,
+        remarks,
+        is_del
+        ) VALUES (
+        #{id},
+        #{parentId},
+        #{parentIds},
+        #{name},
+        #{sort},
+        #{href},
+        #{target},
+        #{icon},
+        #{show},
+        #{permission},
+        #{createBy.id},
+        #{createDate},
+        #{updateBy.id},
+        #{updateDate},
+        #{remarks},
+        #{del}
+        )
+    </insert>
+
+
+    <update id="update" parameterType="Menu">
+        UPDATE sys_menu
+        <set>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="parentIds != null">parent_ids = #{parentIds},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="href != null">href = #{href},</if>
+            <if test="target != null">target = #{target},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="show != null">is_show = #{show},</if>
+            <if test="permission != null">permission = #{permission},</if>
+            <if test="updateBy != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete" parameterType="Menu">
+        UPDATE sys_menu SET is_del = '1' WHERE id = #{id}
+    </update>
+
+
+
+</mapper>

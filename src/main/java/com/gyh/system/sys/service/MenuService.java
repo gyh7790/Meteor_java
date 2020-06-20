@@ -2,7 +2,10 @@ package com.gyh.system.sys.service;
 
 import com.gyh.common.persistence.service.CrudService;
 import com.gyh.system.sys.dao.MenuDao;
+import com.gyh.system.sys.dto.MenuDto;
 import com.gyh.system.sys.entity.Menu;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,8 +36,6 @@ public class MenuService extends CrudService<MenuDao, Menu> {
      * @return
      */
     public int save(Menu menu){
-        //清空缓存
-//        UserUtils.cleanMenuList();
         return super.save(menu);
     }
 
@@ -59,10 +60,37 @@ public class MenuService extends CrudService<MenuDao, Menu> {
         return row;
     }
 
+
+    /**
+     * 根据 角色ID获取 菜单
+     * @param roles 角色 集合
+     * @return
+     */
+    public List<MenuDto> getListByRoles(List<String> roles){
+        List<MenuDto> menuResult = dao.getListByRoles(roles);
+        MenuDto menu = new MenuDto();
+        menu.setId("1");
+        return getNavTree(menuResult,menu);
+    }
+
+    public List<MenuDto> getNavTree(List<MenuDto> menuList,MenuDto parentMenu){
+        List<MenuDto> menuResult = new ArrayList<>();
+        for (MenuDto childMenu : menuList) {
+            if (StringUtils.equals(parentMenu.getId(),childMenu.getParentId())) {
+                childMenu.setChildren(getNavTree(menuList,childMenu));
+                if (childMenu.getChildren() != null && !childMenu.getChildren().isEmpty()) {
+                    childMenu.setChildShow(false);
+                }
+                menuResult.add(childMenu);
+            }
+        }
+        return menuResult;
+    }
+
     public List<Menu> getNavTree(List<Menu> menuList,Menu parentMenu){
         List<Menu> menuResult = new ArrayList<>();
         for (Menu childMenu : menuList) {
-            if (childMenu.getParentId() == parentMenu.getId()) {
+            if (StringUtils.equals(parentMenu.getId(),childMenu.getParentId())) {
                 childMenu.setChildren(getNavTree(menuList,childMenu));
                 if (childMenu.getChildren() != null && !childMenu.getChildren().isEmpty()) {
                     childMenu.setChildShow(false);
