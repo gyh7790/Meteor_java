@@ -61,16 +61,20 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LogInterceptor()).addPathPatterns("/**");
     }
 
+    /**
+     * 配置 json 返回数据
+     * @return
+     */
     @Bean
     public MappingJackson2HttpMessageConverter customJackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
-        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
-        objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);    // 返回 json 处理驼峰
+        objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));    // 时区
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));    // 时间格式
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);  // 为空时不显示
         jsonConverter.setObjectMapper(objectMapper);
         return jsonConverter;
     }
