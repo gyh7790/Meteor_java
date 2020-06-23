@@ -5,7 +5,6 @@ import com.gyh.system.sys.dao.MenuDao;
 import com.gyh.system.sys.dto.MenuDto;
 import com.gyh.system.sys.entity.Menu;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ public class MenuService extends CrudService<MenuDao, Menu> {
     public List<Menu> findAllList(){
         return dao.findAllList(new Menu());
     }
-
 
 
     public Object navigation(){
