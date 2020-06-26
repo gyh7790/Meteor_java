@@ -1,14 +1,24 @@
 package com.gyh.system.sys.service;
 
 import com.gyh.common.persistence.service.CrudService;
+import com.gyh.common.tools.Global;
 import com.gyh.system.sys.dao.MenuDao;
 import com.gyh.system.sys.dto.MenuDto;
 import com.gyh.system.sys.entity.Menu;
+import com.gyh.system.sys.entity.RoleMenu;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 菜单表 Service
@@ -18,7 +28,10 @@ import java.util.List;
 @Service
 public class MenuService extends CrudService<MenuDao, Menu> {
 
+    @Autowired
+    private RoleMenuService roleMenuService;
 
+    @Cacheable(cacheNames = "MenuService",key = "'MenuService.findAllList'")
     public List<Menu> findAllList(){
         return dao.findAllList(new Menu());
     }
@@ -43,21 +56,34 @@ public class MenuService extends CrudService<MenuDao, Menu> {
      * 删除数据（一般为逻辑删除，更新del_flag字段为1）
      * @return
      */
-    public Integer delete(Long id) {
-        int row = 0;
-//        List<Menu> list = UserUtils.getMenuList();
-//        for (Menu menu : list) {
-//            String[] ids = StringUtils.split(menu.getParentIds(),",");
-//            if (CollectUtils.isContains(ids,id+"")) {
-//                row = row + super.delete(menu.getId());
-//            }
-//        }
-//        row = row + super.delete(id);
-//        //清空缓存
-//        UserUtils.cleanMenuList();
-        return row;
+    @CacheEvict(cacheNames = "MenuService",key = "'MenuService.findAllList'")
+    public Integer delete(String id) {
+        return dao.deleteById(id);
     }
 
+    /**
+     * 添加 菜单
+     * @param menu
+     * @return
+     */
+    public int insertAndRoleMenu(Menu menu){
+        List<String> roleIds = Global.getRoleIds();
+        int rows = insert(menu);
+        if (rows > 0) {
+            List<RoleMenu> list = new ArrayList<>();
+            RoleMenu roleMenu = null;
+            for (String roleId : roleIds) {
+                roleMenu = new RoleMenu(roleId,menu.getId());
+                list.add(roleMenu);
+                for (String menuId : StringUtils.split(menu.getParentIds(),",")) {
+                    roleMenu = new RoleMenu(roleId,menuId);
+                    list.add(roleMenu);
+                }
+            }
+            roleMenuService.insertList(list);
+        }
+        return rows;
+    }
 
     /**
      * 根据 角色ID获取 菜单

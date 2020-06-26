@@ -5,6 +5,8 @@ import com.gyh.system.sys.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author gyh
  * @Date 2020/6/12 18:14
@@ -12,4 +14,6 @@ import org.apache.ibatis.annotations.Param;
 public interface UserDao extends CrudDao<User> {
 
     User getByLoginName(@Param("loginName") String loginName);
+
+    User getUserByEmail(@Param("email") String email);
 }

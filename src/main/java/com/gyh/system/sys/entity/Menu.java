@@ -16,6 +16,7 @@ public class Menu extends BaseEntity<Menu> {
     private String parentId;  //父级编号
     private String parentIds;  //所有父级编号
     private String name;  //名称
+    private Integer grade;  // 等级
     private Integer sort;  //排序
     private String href;  //链接
     private String target;  //目标
@@ -60,6 +61,14 @@ public class Menu extends BaseEntity<Menu> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 
     public Integer getSort() {

@@ -3,10 +3,15 @@ package com.gyh.common.tools;
 import com.google.common.collect.Maps;
 import com.gyh.common.utils.PropertiesUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -53,6 +58,15 @@ public class Global {
     public static Boolean isDebugMode() {
         String dm = getConfig("debug.mode");
         return "true".equals(dm) || "1".equals(dm);
+    }
+
+    public static List<String> getRoleIds(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<String> roleIds = new ArrayList<>();
+        if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
+            roleIds = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        }
+        return roleIds;
     }
 
 

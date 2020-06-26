@@ -4,9 +4,11 @@ import com.gyh.common.persistence.base.BaseEntity;
 import com.gyh.common.persistence.base.CrudDao;
 import com.gyh.common.persistence.model.Page;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -73,6 +75,19 @@ public abstract class CrudService<D extends CrudDao<T>,T extends BaseEntity<T>> 
     public int insert(T entity) {
         entity.preInsert();
         return dao.inject(entity);
+    }
+
+    /**
+     * 批量 新增数据
+     * @param list
+     * @return
+     */
+    @Transactional(readOnly = false)
+    public int insertList(List<T> list) {
+        for (T t: list) {
+            t.preInsert();
+        }
+        return dao.injectList(list);
     }
 
     /**

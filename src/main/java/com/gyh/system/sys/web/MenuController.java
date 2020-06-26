@@ -2,7 +2,9 @@ package com.gyh.system.sys.web;
 
 import com.gyh.common.persistence.model.Page;
 import com.gyh.common.persistence.web.BaseController;
+import com.gyh.common.tools.Global;
 import com.gyh.common.tools.ListUtils;
+import com.gyh.common.tools.StringUtils;
 import com.gyh.common.utils.R;
 import com.gyh.system.sys.dto.MenuDto;
 import com.gyh.system.sys.entity.Menu;
@@ -65,16 +67,12 @@ public class MenuController extends BaseController {
      */
     @GetMapping("getNav")
     public R getNav() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List<String> roleId = null;
-        if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
-            roleId = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        }
-        if (ListUtils.isEmpty(roleId)) {
+        List<String> roleIds = Global.getRoleIds();
+        if (ListUtils.isEmpty(roleIds)) {
             return R.error("未能获取角色");
         }
         // 角色 非空时 获取菜单
-        List<MenuDto> menuList = menuService.getListByRoles(roleId);
+        List<MenuDto> menuList = menuService.getListByRoles(roleIds);
         return R.ok("list",menuList);
     }
 
@@ -115,6 +113,49 @@ public class MenuController extends BaseController {
         return R.ok("list",menuList);
     }
 
+    /**
+     * 新增菜单
+     * @param menu 菜单信息
+     * @return
+     */
+    @PostMapping("add")
+    public R add(@RequestBody Menu menu) {
+        // 添加 默认的父级ID
+        if (StringUtils.isEmpty(menu.getParentId())) menu.setParentId("1");
+        if (menu.getSort() == null) menu.setSort(1);
+
+        // 添加 父级菜单处理
+        Menu parentMenu = menuService.get(menu.getParentId());
+        if (parentMenu != null) {
+            String ids = ("0".equals(parentMenu.getParentIds()) ? "" : parentMenu.getParentIds()+"," ) + parentMenu.getId();
+            menu.setParentIds(ids);
+            menu.setGrade(parentMenu.getGrade()+1);
+        }
+
+        int row = menuService.insertAndRoleMenu(menu);
+        if (row > 0) {
+            return R.ok("添加成功").put("menu", menu);
+        } else {
+            return R.error("添加失败");
+        }
+    }
+
+    /**
+     * 修改菜单
+     * @param menu 菜单信息
+     * @return
+     */
+    @PostMapping("update")
+    public R update(@RequestBody Menu menu) {
+        if (menu.getSort() == null) menu.setSort(1);
+
+        int row = menuService.update(menu);
+        if (row > 0) {
+            return R.ok("修改成功").put("menu", menu);
+        } else {
+            return R.error("修改失败");
+        }
+    }
 
     /**
      * 保存数据
@@ -137,7 +178,7 @@ public class MenuController extends BaseController {
      * @return
      */
     @DeleteMapping(value = "{id}")
-    public R delete(@PathVariable Long id) {
+    public R delete(@PathVariable String id) {
         int row = menuService.delete(id);
         if (row > 0) {
             return R.ok("成功删除(" + row +")条");

@@ -1,6 +1,7 @@
 package com.gyh.common.persistence.base;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface CrudDao<T> extends BaseDao {
      * @param id
      * @return
      */
-    T get(String id);
+    T get(@Param("id") String id);
 
     /**
      * 获取单条数据
@@ -45,6 +46,13 @@ public interface CrudDao<T> extends BaseDao {
      * @return
      */
     int inject(T entity);
+
+    /**
+     * 批量 新增数据
+     * @param list
+     * @return
+     */
+    int injectList(@Param("list") List<T> list);
 
     /**
      * 更新数据

@@ -18,6 +18,7 @@ public class LoginUser implements UserDetails, Serializable {
     private String id;
     private String username;
     private String password;
+    private String email;
     private String captcha;
 
     private List<Role> roles = new ArrayList<>();
@@ -62,6 +63,14 @@ public class LoginUser implements UserDetails, Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setCaptcha(String captcha) {

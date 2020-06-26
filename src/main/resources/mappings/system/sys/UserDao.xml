@@ -63,6 +63,15 @@
         WHERE a.is_del = '0' AND a.login_name = #{loginName}
     </select>
 
+    <select id="getUserByEmail" resultMap="userResult">
+        SELECT
+        <include refid="userColumns"/>
+        FROM sys_user a
+        WHERE a.is_del = ${DEL_NORMAL}
+        AND a.email = #{email}
+        ORDER BY a.id
+    </select>
+
     <insert id="inject" parameterType="User">
         INSERT INTO sys_user (
             id,
