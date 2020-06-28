@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyh.system.sys.dao.RoleUrlDao">
+
+
+    <sql id="roleUrlColumns">
+        a.role_id AS "roleId",
+        a.menu_id AS "menuId"
+    </sql>
+
+    <insert id="injectList" parameterType="MenuUrl">
+        REPLACE INTO sys_role_url (role_id,menu_url_id) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.roleId},#{item.menuUrlId})
+        </foreach>
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from sys_role_url WHERE role_id = #{roleId}
+    </delete>
+
+</mapper>

@@ -27,7 +27,6 @@ public class Menu extends BaseEntity<Menu> {
     private List<Menu> children; // 子级菜单
     private Boolean child;
 
-
     public Menu() {
         super();
     }

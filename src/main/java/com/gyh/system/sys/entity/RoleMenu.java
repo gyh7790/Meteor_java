@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author gyh
  * @Date 2020/6/25 19:30
  */
-public class RoleMenu extends BaseEntity<RoleMenu> implements Serializable {
+public class RoleMenu extends BaseEntity<RoleMenu> {
 
     private String roleId;
     private String menuId;

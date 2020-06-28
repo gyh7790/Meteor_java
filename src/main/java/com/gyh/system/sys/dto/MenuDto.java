@@ -1,6 +1,7 @@
 package com.gyh.system.sys.dto;
 
 import com.gyh.system.sys.entity.Menu;
+import com.gyh.system.sys.entity.MenuUrl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,7 @@ public class MenuDto implements Serializable {
     private String id;  // 编号
     private String parentId;  //父级编号
     private String name;  //名称
+    private Integer grade;
     private Integer sort;  //排序
     private String href;  //链接
     private String target;  //目标
@@ -23,6 +25,7 @@ public class MenuDto implements Serializable {
     private Boolean childShow; //展开子菜单
     private List<MenuDto> children; // 子级菜单
     private Boolean child;
+    private List<MenuUrl> urls;
 
     public String getId() {
         return id;
@@ -46,6 +49,14 @@ public class MenuDto implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 
     public Integer getSort() {
@@ -110,5 +121,13 @@ public class MenuDto implements Serializable {
 
     public void setChild(Boolean child) {
         this.child = child;
+    }
+
+    public List<MenuUrl> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(List<MenuUrl> urls) {
+        this.urls = urls;
     }
 }

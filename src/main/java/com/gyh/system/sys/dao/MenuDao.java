@@ -19,4 +19,11 @@ public interface MenuDao extends CrudDao<Menu> {
      * @return
      */
     List<MenuDto> getListByRoles(@Param("roles") List<String> roles);
+
+    /**
+     * 根据 角色ID获取 菜单
+     * @param roles 角色 集合
+     * @return
+     */
+    List<MenuDto> getListUrlByRoles(@Param("roles") List<String> roles);
 }

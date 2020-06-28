@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyh.system.sys.dao.MenuUrlDao">
+
+
+    <sql id="menuUrlColumns">
+        a.id AS "id",
+        a.menu_id AS "menuId",
+        a.`name` AS "name",
+        a.url AS "url",
+        a.type AS "type",
+        a.is_auth AS "auth",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.is_del AS "del"
+    </sql>
+
+    <insert id="inject" parameterType="MenuUrl">
+        REPLACE INTO sys_menu_url (id,menu_id,name,url,type,is_auth,create_by,create_date,update_by,update_date,remarks,is_del)
+        VALUES (#{id},#{menuId},#{name},#{url},#{type},#{auth},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})
+    </insert>
+
+    <insert id="injectList" parameterType="MenuUrl">
+        REPLACE INTO sys_menu_url (id,menu_id,name,url,type,is_auth,create_by,create_date,update_by,update_date,remarks,is_del) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{id},#{menuId},#{name},#{url},#{type},#{auth},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="MenuUrl">
+        UPDATE sys_menu_url
+        <set>
+            <if test="name != null"> `name` = #{name},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="type != null"> type = #{type},</if>
+            <if test="auth != null">is_auth = #{auth},</if>
+            <if test="updateBy != null and updateBy.id != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from sys_menu_url WHERE id = #{id}
+    </delete>
+
+</mapper>

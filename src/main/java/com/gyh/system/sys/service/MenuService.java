@@ -9,16 +9,11 @@ import com.gyh.system.sys.entity.RoleMenu;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 菜单表 Service
@@ -92,6 +87,18 @@ public class MenuService extends CrudService<MenuDao, Menu> {
      */
     public List<MenuDto> getListByRoles(List<String> roles){
         List<MenuDto> menuResult = dao.getListByRoles(roles);
+        MenuDto menu = new MenuDto();
+        menu.setId("1");
+        return getNavTree(menuResult,menu);
+    }
+
+    /**
+     * 根据 角色ID获取 菜单(带有url)
+     * @param roles 角色 集合
+     * @return
+     */
+    public List<MenuDto> getListUrlByRoles(List<String> roles){
+        List<MenuDto> menuResult = dao.getListUrlByRoles(roles);
         MenuDto menu = new MenuDto();
         menu.setId("1");
         return getNavTree(menuResult,menu);

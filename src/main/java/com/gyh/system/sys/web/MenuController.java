@@ -80,6 +80,22 @@ public class MenuController extends BaseController {
      * 查询数据列表
      * @return
      */
+    @GetMapping("getNavUrl")
+    public R getNavUrl() {
+        List<String> roleIds = Global.getRoleIds();
+        if (ListUtils.isEmpty(roleIds)) {
+            return R.error("未能获取角色");
+        }
+        // 角色 非空时 获取菜单
+        List<MenuDto> menuList = menuService.getListUrlByRoles(roleIds);
+        return R.ok("list",menuList);
+    }
+
+
+    /**
+     * 查询数据列表
+     * @return
+     */
     @GetMapping("navList")
     public R navigationList() {
         List<Menu> resultList = new ArrayList<>();
