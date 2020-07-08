@@ -15,7 +15,7 @@
         </foreach>
     </insert>
 
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="string">
         delete from sys_role_menu WHERE role_id = #{roleId}
     </delete>
 

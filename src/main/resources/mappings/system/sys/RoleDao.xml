@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyh.system.sys.dao.RoleDao">
+
+
+    <sql id="roleColumns">
+        a.id AS "id",
+        a.`name` AS "name",
+        a.enname AS "enname",
+        a.`type` As "type",
+        a.useable AS "useable",
+        a.data_scope AS "dataScope",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.is_del AS "del"
+    </sql>
+
+    <select id="findList" resultType="Role">
+        SELECT
+        <include refid="roleColumns"/>
+        FROM sys_role a
+        WHERE a.is_del = ${DEL_NORMAL}
+    </select>
+
+
+
+    <insert id="injectList" parameterType="Menu">
+        REPLACE INTO sys_role (role_id,menu_id) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.roleId},#{item.menuId})
+        </foreach>
+    </insert>
+
+    <delete id="delete" parameterType="string">
+        delete from sys_role WHERE role_id = #{roleId}
+    </delete>
+
+</mapper>

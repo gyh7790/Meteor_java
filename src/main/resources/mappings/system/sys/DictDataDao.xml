@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyh.system.sys.dao.DictDataDao">
+
+    <sql id="dictDataColumns">
+        a.id AS "id",
+        a.`value` AS "value",
+        a.label AS "label",
+        a.dict_type AS "dictType",
+        a.sort AS "sort",
+        a.is_defaults AS "defaults",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.is_del AS "del"
+    </sql>
+
+
+    <select id="get" resultType="DictData">
+        SELECT
+        <include refid="dictDataColumns"/>
+        FROM sys_dict_data a
+        WHERE a.id = #{id}
+    </select>
+
+
+    <select id="findList" resultType="DictData">
+        SELECT
+        <include refid="dictDataColumns"/>
+        FROM sys_dict_data a
+        WHERE a.is_del = ${DEL_NORMAL}
+        ORDER BY a.sort
+    </select>
+
+    <select id="getListByType" resultType="DictData">
+        SELECT
+        <include refid="dictDataColumns"/>
+        FROM sys_dict_data a
+        WHERE a.is_del = ${DEL_NORMAL}
+        AND a.dict_type = #{type}
+        ORDER BY a.sort
+    </select>
+
+
+    <select id="findAllList" resultType="DictData">
+        SELECT
+        <include refid="dictDataColumns"/>
+        FROM sys_dict_data a
+        WHERE a.is_del = ${DEL_NORMAL}
+        ORDER BY a.id
+    </select>
+
+    <insert id="inject" parameterType="DictData" useGeneratedKeys="true" keyProperty="id">
+        REPLACE INTO sys_dict_data (
+        id,
+        `value`,
+        label,
+        dict_type,
+        sort,
+        is_defaults,
+        create_by,
+        create_date,
+        update_by,
+        update_date,
+        remarks,
+        is_del
+        ) VALUES (
+        #{id},
+        #{value},
+        #{label},
+        #{dictType},
+        #{sort},
+        #{defaults},
+        #{createBy.id},
+        #{createDate},
+        #{updateBy.id},
+        #{updateDate},
+        #{remarks},
+        #{del}
+        )
+    </insert>
+
+    <update id="update" parameterType="DictData">
+        UPDATE sys_dict_data
+        <set>
+            <if test="value != null">`value` = #{value},</if>
+            <if test="label != null">label = #{label},</if>
+            <if test="dictType != null">dict_type = #{dictType},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="defaults != null">is_defaults = #{defaults},</if>
+            <if test="updateBy != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="setDefaultById">
+        UPDATE sys_dict_data set is_defaults = #{defaults} WHERE is_del = ${DEL_NORMAL} AND id = #{id}
+    </update>
+
+    <update id="setDefaultByType">
+        UPDATE sys_dict_data set is_defaults = #{defaults} WHERE is_del = ${DEL_NORMAL} AND dict_type = #{dictType}
+    </update>
+
+    <update id="deleteById" parameterType="string">
+        UPDATE sys_dict_data SET is_del = ${DEL_DELETE} WHERE id = #{id}
+    </update>
+
+</mapper>

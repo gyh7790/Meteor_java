@@ -2,11 +2,9 @@ package com.gyh.system.sys.service;
 
 import com.gyh.common.persistence.service.CrudService;
 import com.gyh.common.tools.Global;
-import com.gyh.system.sys.dao.MenuUrlDao;
-import com.gyh.system.sys.dao.RoleMenuDao;
-import com.gyh.system.sys.entity.MenuUrl;
-import com.gyh.system.sys.entity.RoleMenu;
+import com.gyh.system.sys.dao.UrlDao;
 import com.gyh.system.sys.entity.RoleUrl;
+import com.gyh.system.sys.entity.Url;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,18 +18,24 @@ import java.util.stream.Collectors;
  * @Date 2020/6/26 19:28
  */
 @Service
-public class MenuUrlService extends CrudService<MenuUrlDao, MenuUrl> {
+public class UrlService extends CrudService<UrlDao, Url> {
 
     @Autowired
     private RoleUrlService roleUrlService;
 
-    public int addUrlAndRoleUrl(List<MenuUrl> list){
+    @Autowired
+    private MenuService menuService;
+
+
+
+    public int addUrlAndRoleUrl(List<Url> list){
         int row = 0;
-        for (MenuUrl menuUrl : list) {
-            if (StringUtils.isEmpty(menuUrl.getId())) {
-                row += insert(menuUrl);
+        for (Url url : list) {
+            url.setPermission(menuService.getPermission(url.getMenuId()));
+            if (StringUtils.isEmpty(url.getId())) {
+                row += insert(url);
             } else {
-                row += update(menuUrl);
+                row += update(url);
             }
         }
 
@@ -44,6 +48,11 @@ public class MenuUrlService extends CrudService<MenuUrlDao, MenuUrl> {
 
         roleUrlService.insertList(saveList);
         return row;
+    }
+
+    public int putAuth(Url url){
+        url.preUpdate();
+        return dao.putAuth(url);
     }
 
 }

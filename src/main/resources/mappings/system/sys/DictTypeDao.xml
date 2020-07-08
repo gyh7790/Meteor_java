@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyh.system.sys.dao.DictTypeDao">
+
+
+    <resultMap id="dictTypeMap" type="com.gyh.system.sys.entity.DictType">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="parentId" property="parentId"/>
+        <collection property="list" ofType="com.gyh.system.sys.entity.DictData">
+            <id column="url_Id" property="id"/>
+            <result column="value" property="value"/>
+            <result column="label" property="label"/>
+            <result column="sort" property="sort"/>
+            <result column="dictType" property="dictType"/>
+            <result column="defaults" property="defaults"/>
+        </collection>
+    </resultMap>
+
+    <sql id="dictTypeColumns">
+        a.id AS "id",
+        a.`name` AS "name",
+        a.`type` AS "type",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.is_del AS "del"
+    </sql>
+
+
+    <select id="get" resultType="DictType">
+        SELECT
+        <include refid="dictTypeColumns"/>
+        FROM sys_dict_type a
+        WHERE a.id = #{id}
+    </select>
+
+
+    <select id="findList" resultType="DictType">
+        SELECT
+        <include refid="dictTypeColumns"/>
+        FROM sys_dict_type a
+        WHERE a.is_del = ${DEL_NORMAL}
+    </select>
+
+
+    <select id="findAllList" resultType="DictType">
+        SELECT
+        <include refid="dictTypeColumns"/>
+        FROM sys_dict_type a
+        WHERE a.is_del = ${DEL_NORMAL}
+        ORDER BY a.id
+    </select>
+
+    <insert id="inject" parameterType="DictType" useGeneratedKeys="true" keyProperty="id">
+        REPLACE INTO sys_dict_type (
+        id,
+        name,
+        type,
+        create_by,
+        create_date,
+        update_by,
+        update_date,
+        remarks,
+        is_del
+        ) VALUES (
+        #{id},
+        #{name},
+        #{type},
+        #{createBy.id},
+        #{createDate},
+        #{updateBy.id},
+        #{updateDate},
+        #{remarks},
+        #{del}
+        )
+    </insert>
+
+    <update id="update" parameterType="DictType">
+        UPDATE sys_dict_type
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="updateBy != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteById" parameterType="string">
+        UPDATE sys_dict_type SET is_del = ${DEL_DELETE} WHERE id = #{id}
+    </update>
+    
+</mapper>

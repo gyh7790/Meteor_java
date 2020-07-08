@@ -8,10 +8,10 @@
         a.menu_id AS "menuId"
     </sql>
 
-    <insert id="injectList" parameterType="MenuUrl">
-        REPLACE INTO sys_role_url (role_id,menu_url_id) VALUES
+    <insert id="injectList" parameterType="RoleUrl">
+        REPLACE INTO sys_role_url (role_id,url_id) VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{item.roleId},#{item.menuUrlId})
+            (#{item.roleId},#{item.urlId})
         </foreach>
     </insert>
 

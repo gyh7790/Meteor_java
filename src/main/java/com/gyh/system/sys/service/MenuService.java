@@ -36,6 +36,26 @@ public class MenuService extends CrudService<MenuDao, Menu> {
         return null;
     }
 
+//    public String getPermission(String id){
+//        StringBuilder sb = new StringBuilder();
+//        getPermission();
+//        return getPermission();
+//    }
+
+    /**
+     * 获取 授权字段
+     * @return
+     */
+    public String getPermission(String id){
+        String perm = "";
+        Menu menu = dao.get(id);
+        if (menu.getGrade() > 0) { // 不是顶级
+            perm = getPermission(menu.getParentId());
+        }
+        return (StringUtils.isNotEmpty(perm) ? perm + ":" : "") + menu.getTarget();
+    }
+
+
     /**
      * 保存菜单
      * @param menu
@@ -55,6 +75,7 @@ public class MenuService extends CrudService<MenuDao, Menu> {
     public Integer delete(String id) {
         return dao.deleteById(id);
     }
+
 
     /**
      * 添加 菜单

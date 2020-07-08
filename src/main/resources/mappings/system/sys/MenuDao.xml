@@ -12,20 +12,21 @@
         <result column="target" property="target"/>
         <result column="icon" property="icon"/>
         <result column="show" property="show"/>
-        <collection property="urls" ofType="com.gyh.system.sys.entity.MenuUrl">
+        <collection property="urls" ofType="com.gyh.system.sys.entity.Url">
             <id column="url_Id" property="id"/>
             <result column="url_menuId" property="menuId"/>
             <result column="url_name" property="name"/>
             <result column="url_url" property="url"/>
             <result column="url_type" property="type"/>
-            <result column="auth" property="auth"/>
+            <result column="url_auth" property="auth"/>
+            <result column="url_permission" property="permission"/>
         </collection>
     </resultMap>
 
     <sql id="menuColumns">
         a.id AS "id",
         a.parent_id AS "parentId",
-        a.parent_ids AS "parentId",
+        a.parent_ids AS "parentIds",
         a.name AS "name",
         a.grade AS "grade",
         a.sort AS "sort",
@@ -88,10 +89,11 @@
             smu.`name` AS "url_name",
             smu.url AS "url_url",
             smu.type AS "url_type",
-            smu.is_auth AS "auth"
+            smu.is_auth AS "url_auth",
+            smu.permission AS "url_permission"
         FROM sys_menu a
         LEFT JOIN sys_role_menu srm ON a.id = srm.menu_id
-        LEFT JOIN sys_menu_url smu ON a.id = smu.menu_id
+        LEFT JOIN sys_url smu ON a.id = smu.menu_id
         WHERE a.is_del = ${DEL_NORMAL}
         <foreach collection="roles" index="i" open="AND srm.role_id IN (" separator="," close=")">
             #{roles[${i}]}

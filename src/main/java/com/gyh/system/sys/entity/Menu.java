@@ -22,6 +22,7 @@ public class Menu extends BaseEntity<Menu> {
     private String target;  //目标
     private String icon;  //图标
     private Boolean show;  //是否在菜单中显示
+    private String permission;  // 授权字段
 
     private Boolean childShow; //展开子菜单
     private List<Menu> children; // 子级菜单
@@ -107,6 +108,14 @@ public class Menu extends BaseEntity<Menu> {
 
     public Boolean getShow() {
         return show;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 
     public void setShow(Boolean show) {

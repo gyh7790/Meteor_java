@@ -9,11 +9,11 @@ import com.gyh.common.persistence.base.BaseEntity;
 public class RoleUrl extends BaseEntity<RoleUrl> {
 
     private String roleId;
-    private String menuUrlId;
+    private String urlId;
 
-    public RoleUrl(String roleId, String menuUrlId) {
+    public RoleUrl(String roleId, String urlId) {
         this.roleId = roleId;
-        this.menuUrlId = menuUrlId;
+        this.urlId = urlId;
     }
 
     public String getRoleId() {
@@ -24,11 +24,11 @@ public class RoleUrl extends BaseEntity<RoleUrl> {
         this.roleId = roleId;
     }
 
-    public String getMenuUrlId() {
-        return menuUrlId;
+    public String getUrlId() {
+        return urlId;
     }
 
-    public void setMenuUrlId(String menuUrlId) {
-        this.menuUrlId = menuUrlId;
+    public void setUrlId(String urlId) {
+        this.urlId = urlId;
     }
 }

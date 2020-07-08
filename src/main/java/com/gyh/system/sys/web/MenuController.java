@@ -143,7 +143,7 @@ public class MenuController extends BaseController {
         // 添加 父级菜单处理
         Menu parentMenu = menuService.get(menu.getParentId());
         if (parentMenu != null) {
-            String ids = ("0".equals(parentMenu.getParentIds()) ? "" : parentMenu.getParentIds()+"," ) + parentMenu.getId();
+            String ids = (parentMenu.getGrade() > 0 ? parentMenu.getParentIds()+"," : "" ) + parentMenu.getId();
             menu.setParentIds(ids);
             menu.setGrade(parentMenu.getGrade()+1);
         }

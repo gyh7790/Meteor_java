@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyh.system.sys.dao.UrlDao">
+
+
+    <sql id="urlColumns">
+        a.id AS "id",
+        a.menu_id AS "menuId",
+        a.`name` AS "name",
+        a.url AS "url",
+        a.type AS "type",
+        a.is_auth AS "auth",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.is_del AS "del"
+    </sql>
+
+
+    <select id="findList" resultType="Url">
+        SELECT
+        <include refid="urlColumns"/>,
+        sm.`name` AS "menuName"
+        FROM sys_url a
+        LEFT JOIN sys_menu sm ON a.menu_id = sm.id
+        WHERE a.is_del = ${DEL_NORMAL}
+    </select>
+
+    <insert id="inject" parameterType="Url">
+        REPLACE INTO sys_url (id,menu_id,name,url,type,is_auth,create_by,create_date,update_by,update_date,remarks,is_del)
+        VALUES (#{id},#{menuId},#{name},#{url},#{type},#{auth},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})
+    </insert>
+
+    <insert id="injectList" parameterType="Url">
+        REPLACE INTO sys_url (id,menu_id,name,url,type,is_auth,permission,create_by,create_date,update_by,update_date,remarks,is_del) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{id},#{menuId},#{name},#{url},#{type},#{auth},#{permission},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="Url">
+        UPDATE sys_url
+        <set>
+            <if test="name != null"> `name` = #{name},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="type != null"> type = #{type},</if>
+            <if test="auth != null">is_auth = #{auth},</if>
+            <if test="permission != null">permission = #{permission},</if>
+            <if test="updateBy != null and updateBy.id != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="putAuth" parameterType="Url">
+        UPDATE sys_url
+        <set>
+            is_auth = #{auth},
+            <if test="updateBy != null and updateBy.id != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteById" parameterType="string">
+        UPDATE sys_url set is_del = ${DEL_DELETE} WHERE id = #{id}
+    </update>
+
+</mapper>

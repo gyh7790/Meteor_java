@@ -127,7 +127,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         logger.debug("JwtAuthUser:" + jwtUser.toString());
 
-        List<String> roleId = null;
+        List<String> roleId = new ArrayList<>();
         // 角色 非空时 获取菜单
         if (ListUtils.isNotEmpty(jwtUser.getRoles())) {
             roleId = jwtUser.getRoles().stream().map(Role::getId).collect(Collectors.toList());
