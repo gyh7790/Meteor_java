@@ -52,6 +52,11 @@ public class UrlController extends BaseController {
         return R.ok(url);
     }
 
+    /**
+     * 删除数据
+     * @param id
+     * @return
+     */
     @DeleteMapping("{id}")
     public R delete(@PathVariable String id){
         int row = urlService.deleteById(id);
