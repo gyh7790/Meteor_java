@@ -50,6 +50,8 @@
             <outputDirectory>/</outputDirectory>
             <includes>
                 <include>start.bat</include>
+                <include>startup.sh</include>
+                <include>shutdown.sh</include>
             </includes>
         </fileSet>
         <fileSet>
