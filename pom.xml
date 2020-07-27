@@ -122,7 +122,7 @@
     </dependencies>
 
     <build>
-        <finalName>meteor1</finalName>
+        <finalName>meteor-java</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -2,6 +2,6 @@
 
 title Meteor
 
-java -jar .\lib\meteor1.jar
+java -jar ./lib/meteor-java.jar
 
 pause over
