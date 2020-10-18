@@ -45,6 +45,7 @@ public class WebConfig implements WebMvcConfigurer {
     /**
      * 解决 跨域问题
      * 如果 拦截器 该配置将无效
+     * 解决 方法看：com.gyh.config.cors.CorsConfig
      * @param registry
      */
 //    @Override
