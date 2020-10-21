@@ -21,6 +21,9 @@ public abstract class BaseEntity<T> extends RootEntity<T> {
     protected Date updateDate;  //修改时间
     protected Integer del;		//删除标记（0：正常；1：删除；）
 
+    // 模糊查询关键字
+    protected String keyword;
+
     public BaseEntity() {
         super();
         this.del= DEL_NORMAL;
@@ -81,6 +84,15 @@ public abstract class BaseEntity<T> extends RootEntity<T> {
 
     public BaseEntity(String id) {
         super(id);
+    }
+
+    @JsonIgnore
+    public String getKeyWord() {
+        return keyword;
+    }
+
+    public void setKeyWord(String keyword) {
+        this.keyword = keyword;
     }
 
     // 创建者 和 修改者有待完善

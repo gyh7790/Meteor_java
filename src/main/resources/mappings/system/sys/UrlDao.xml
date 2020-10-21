@@ -28,12 +28,12 @@
         WHERE a.is_del = ${DEL_NORMAL}
     </select>
 
-    <insert id="inject" parameterType="Url">
+    <insert id="insert" parameterType="Url">
         REPLACE INTO sys_url (id,menu_id,name,url,type,is_auth,create_by,create_date,update_by,update_date,remarks,is_del)
         VALUES (#{id},#{menuId},#{name},#{url},#{type},#{auth},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})
     </insert>
 
-    <insert id="injectList" parameterType="Url">
+    <insert id="insertList" parameterType="Url">
         REPLACE INTO sys_url (id,menu_id,name,url,type,is_auth,permission,create_by,create_date,update_by,update_date,remarks,is_del) VALUES
         <foreach collection="list" item="item" separator=",">
             (#{id},#{menuId},#{name},#{url},#{type},#{auth},#{permission},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})

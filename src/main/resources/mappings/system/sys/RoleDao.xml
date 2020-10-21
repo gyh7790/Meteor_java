@@ -23,19 +23,40 @@
         <include refid="roleColumns"/>
         FROM sys_role a
         WHERE a.is_del = ${DEL_NORMAL}
+        <if test="keyword != null and keyword != ''">
+            and (a.`name` like concat('%',#{keyword},'%') OR a.enname like concat('%',#{keyword},'%'))
+        </if>
     </select>
 
-
-
-    <insert id="injectList" parameterType="Menu">
+    <insert id="insertList" parameterType="Menu">
         REPLACE INTO sys_role (role_id,menu_id) VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.roleId},#{item.menuId})
         </foreach>
     </insert>
 
-    <delete id="delete" parameterType="string">
-        delete from sys_role WHERE role_id = #{roleId}
+    <insert id="insert">
+        INSERT INTO sys_role(id,name,enname,type,useable,data_scope,create_by,create_date,update_by,update_date,remarks,is_del)
+        values (#{id},#{name},#{enname},#{type},#{useable},#{dataScope},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})
+    </insert>
+
+    <update id="update">
+        UPDATE sys_role
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="enname != null">enname = #{enname},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="useable != null">useable = #{useable},</if>
+            <if test="dataScope != null">data_scope = #{dataScope},</if>
+            <if test="updateBy != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="string">
+        update sys_role set is_del = ${DEL_DELETE} WHERE id = #{id}
     </delete>
 
 </mapper>

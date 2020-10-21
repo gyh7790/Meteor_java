@@ -52,7 +52,7 @@
         ORDER BY a.id
     </select>
 
-    <insert id="inject" parameterType="DictData" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="DictData" useGeneratedKeys="true" keyProperty="id">
         REPLACE INTO sys_dict_data (
         id,
         `value`,

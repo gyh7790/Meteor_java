@@ -45,14 +45,14 @@ public interface CrudDao<T> extends BaseDao {
      * @param entity
      * @return
      */
-    int inject(T entity);
+    int insert(T entity);
 
     /**
      * 批量 新增数据
      * @param list
      * @return
      */
-    int injectList(@Param("list") List<T> list);
+    int insertList(@Param("list") List<T> list);
 
     /**
      * 更新数据

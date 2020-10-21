@@ -101,7 +101,7 @@
         ORDER BY a.sort
     </select>
 
-    <insert id="inject" parameterType="Menu" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="Menu" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_menu (
         id,
         parent_id,
@@ -139,7 +139,7 @@
         )
     </insert>
 
-    <insert id="injectUserMenu" parameterType="Menu" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertUserMenu" parameterType="Menu" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_role_menu (role_id,menu_id) VALUES (#{roleId},#{menuId})
     </insert>
 

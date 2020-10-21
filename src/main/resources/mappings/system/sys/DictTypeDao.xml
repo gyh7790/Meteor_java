@@ -44,6 +44,9 @@
         <include refid="dictTypeColumns"/>
         FROM sys_dict_type a
         WHERE a.is_del = ${DEL_NORMAL}
+        <if test="keyword != null and keyword != ''">
+            AND (a.`name` LIKE CONCAT('%',#{keyword},'%') OR a.type LIKE CONCAT('%',#{keyword},'%'))
+        </if>
     </select>
 
 
@@ -55,7 +58,7 @@
         ORDER BY a.id
     </select>
 
-    <insert id="inject" parameterType="DictType" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="DictType" useGeneratedKeys="true" keyProperty="id">
         REPLACE INTO sys_dict_type (
         id,
         name,

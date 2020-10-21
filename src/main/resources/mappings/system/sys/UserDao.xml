@@ -9,6 +9,7 @@
         <result property="name" column="name"/>
         <result property="email" column="email"/>
         <result property="phone" column="phone"/>
+        <result property="status" column="status"/>
         <collection property="roles" ofType="Role">
             <id property="id" column="roleId" />
             <result property="enname" column="enname"/>
@@ -23,6 +24,8 @@
         a.email AS "email",
         a.phone AS "phone",
         a.type AS "type",
+        a.sex AS "sex",
+        a.status AS "status",
         a.create_by AS "createBy.id",
         a.create_date AS "createDate",
         a.update_by AS "updateBy.id",
@@ -42,6 +45,15 @@
         SELECT
         <include refid="userColumns"/>
         FROM sys_user a
+        <where>
+            a.is_del = ${DEL_NORMAL}
+            <if test="keyword != null and keyword != ''">
+                AND (a.login_name like concat('%',#{keyword},'%')
+                OR a.name like concat('%',#{keyword},'%')
+                OR a.email like concat('%',#{keyword},'%')
+                OR a.phone like concat('%',#{keyword},'%'))
+            </if>
+        </where>
     </select>
 
     <select id="findAllList" resultType="User">
@@ -72,7 +84,7 @@
         ORDER BY a.id
     </select>
 
-    <insert id="inject" parameterType="User">
+    <insert id="insert" parameterType="User">
         INSERT INTO sys_user (
             id,
             login_name,

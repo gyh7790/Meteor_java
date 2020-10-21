@@ -1,7 +1,9 @@
 package com.gyh.system.sys.web;
 
+import com.gyh.common.persistence.model.Page;
 import com.gyh.common.tools.Assert;
 import com.gyh.common.utils.R;
+import com.gyh.system.sys.entity.Url;
 import com.gyh.system.sys.entity.User;
 import com.gyh.system.sys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,12 @@ public class UserController extends BaseConstructor {
     public R list(User user) {
         List<User> userList = userService.findList(user);
         return R.ok("list",userList);
+    }
+
+    @GetMapping("page")
+    public R page(User user, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
+        Page<User> page = userService.findPage(new Page<User>(pageNo, pageSize),user);
+        return R.ok("page", page);
     }
 
     @GetMapping("verifyUserName")

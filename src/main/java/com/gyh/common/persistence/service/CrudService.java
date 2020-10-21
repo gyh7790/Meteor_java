@@ -74,7 +74,7 @@ public abstract class CrudService<D extends CrudDao<T>,T extends BaseEntity<T>> 
     @Transactional(readOnly = false)
     public int insert(T entity) {
         entity.preInsert();
-        return dao.inject(entity);
+        return dao.insert(entity);
     }
 
     /**
@@ -87,7 +87,7 @@ public abstract class CrudService<D extends CrudDao<T>,T extends BaseEntity<T>> 
         for (T t: list) {
             t.preInsert();
         }
-        return dao.injectList(list);
+        return dao.insertList(list);
     }
 
     /**
