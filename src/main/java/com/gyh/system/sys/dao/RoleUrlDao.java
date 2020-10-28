@@ -10,4 +10,8 @@ import com.gyh.system.sys.entity.RoleUrl;
  */
 public interface RoleUrlDao extends CrudDao<RoleUrl> {
 
+
+    int deleteByUrlId(String urlId);
+
+    int deleteByRoleId(String roleId);
 }

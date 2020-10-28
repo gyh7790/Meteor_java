@@ -8,6 +8,15 @@
         a.menu_id AS "menuId"
     </sql>
 
+    <select id="getMenusByRoleId" resultType="string">
+        SELECT DISTINCT srm.menu_id
+        FROM sys_role_menu srm
+        WHERE srm.role_id IN 
+        <foreach collection="roleIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <insert id="insertList" parameterType="Menu">
         REPLACE INTO sys_role_menu (role_id,menu_id) VALUES
         <foreach collection="list" item="item" separator=",">
@@ -15,8 +24,12 @@
         </foreach>
     </insert>
 
-    <delete id="delete" parameterType="string">
+    <delete id="deleteById" parameterType="string">
         delete from sys_role_menu WHERE role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteByMenuId" parameterType="string">
+        delete from sys_role_menu WHERE menu_id = #{menuId}
     </delete>
 
 </mapper>

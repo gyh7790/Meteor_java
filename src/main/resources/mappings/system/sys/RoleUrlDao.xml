@@ -9,14 +9,17 @@
     </sql>
 
     <insert id="insertList" parameterType="RoleUrl">
-        REPLACE INTO sys_role_url (role_id,url_id) VALUES
+        INSERT INTO sys_role_url (role_id,url_id) VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.roleId},#{item.urlId})
         </foreach>
     </insert>
 
-    <delete id="delete" parameterType="int">
+    <delete id="deleteByRoleId" parameterType="string">
         delete from sys_role_url WHERE role_id = #{roleId}
     </delete>
 
+    <delete id="deleteByUrlId" parameterType="string">
+        delete from sys_role_url WHERE url_id = #{urlId}
+    </delete>
 </mapper>

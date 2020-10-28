@@ -73,6 +73,7 @@ public abstract class BaseEntity<T> extends RootEntity<T> {
         this.updateDate = updateTime;
     }
 
+    @JsonIgnore
     public int getDel() {
         if (del == null) return 0;
         return del;

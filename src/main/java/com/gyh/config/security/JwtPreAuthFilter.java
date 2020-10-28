@@ -1,5 +1,7 @@
 package com.gyh.config.security;
 
+import com.gyh.system.sys.entity.User;
+import com.gyh.system.sys.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -64,6 +66,7 @@ public class JwtPreAuthFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(String tokenHeader) {
         //解析Token时将“Bearer ”前缀去掉
         String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
+        String userId = JwtTokenUtils.getUserId(token);
         String username = JwtTokenUtils.getUsername(token);
         List<String> roles = JwtTokenUtils.getUserRole(token);
         Collection<GrantedAuthority> authorities = new HashSet<>();
@@ -73,7 +76,7 @@ public class JwtPreAuthFilter extends BasicAuthenticationFilter {
             }
         }
         if (username != null){
-            return new UsernamePasswordAuthenticationToken(username, null, authorities);
+            return new UsernamePasswordAuthenticationToken(new User(userId,username,roles), null, authorities);
         }
         return null;
     }

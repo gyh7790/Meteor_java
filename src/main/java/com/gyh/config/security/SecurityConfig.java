@@ -8,6 +8,7 @@ import com.gyh.system.sys.dto.LoginUser;
 import com.gyh.system.sys.dto.MenuDto;
 import com.gyh.system.sys.entity.Menu;
 import com.gyh.system.sys.entity.Role;
+import com.gyh.system.sys.entity.User;
 import com.gyh.system.sys.service.MenuService;
 import com.gyh.system.sys.service.UserService;
 import org.slf4j.Logger;
@@ -136,7 +137,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         List<MenuDto> menuList = menuService.getListByRoles(roleId);
 
         logger.debug("roles:"+roleId);
-        String token = JwtTokenUtils.generateToken(jwtUser.getUsername(), roleId, true);
+        String token = JwtTokenUtils.generateToken(jwtUser.getId(),jwtUser.getUsername(), roleId, true);
         logger.debug("token:"+token);
 
         resp.setContentType("application/json;charset=utf-8");

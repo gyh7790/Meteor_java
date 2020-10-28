@@ -28,6 +28,15 @@
         </if>
     </select>
 
+    <select id="findAllList" resultType="Role">
+        SELECT
+            a.id AS "id",
+            a.`name` AS "name",
+            a.enname AS "enname"
+        FROM sys_role a
+        WHERE a.is_del = ${DEL_NORMAL}
+    </select>
+
     <insert id="insertList" parameterType="Menu">
         REPLACE INTO sys_role (role_id,menu_id) VALUES
         <foreach collection="list" item="item" separator=",">

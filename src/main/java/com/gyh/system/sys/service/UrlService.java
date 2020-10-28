@@ -2,12 +2,14 @@ package com.gyh.system.sys.service;
 
 import com.gyh.common.persistence.service.CrudService;
 import com.gyh.common.tools.Global;
+import com.gyh.common.tools.ListUtils;
+import com.gyh.common.tools.StringUtils;
 import com.gyh.system.sys.dao.UrlDao;
 import com.gyh.system.sys.entity.RoleUrl;
 import com.gyh.system.sys.entity.Url;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,6 @@ public class UrlService extends CrudService<UrlDao, Url> {
                 row += update(url);
             }
         }
-
         List<RoleUrl> saveList = new ArrayList<>();
         List<String> roles = Global.getRoleIds();
         for (String role : roles) {
@@ -50,9 +51,34 @@ public class UrlService extends CrudService<UrlDao, Url> {
         return row;
     }
 
+    @Transactional
+    public int saveUrlAndMenuRole(Url url,List<String> roleIds){
+        int row = super.save(url);
+        if (row > 0) {
+            roleUrlService.deleteByUrlId(url.getId());
+            List<RoleUrl> roleUrlList = new ArrayList<>();
+            roleIds.parallelStream().forEach(e->{
+                roleUrlList.add(new RoleUrl(e,url.getId()));
+            });
+            roleUrlService.insertList(roleUrlList);
+        }
+        return row;
+    }
+
     public int putAuth(Url url){
         url.preUpdate();
         return dao.putAuth(url);
     }
 
+    public String getMaxCoide() {
+        String maxCode = dao.getMaxCode();
+        char prefix = maxCode.charAt(0);
+        String suffix = StringUtils.right(maxCode,3);
+        String nextSuffix = StringUtils.add(suffix,"1");
+        if (StringUtils.length(nextSuffix) > 3) {
+            return (char)(prefix + 1) + "001";
+        } else {
+            return prefix + StringUtils.leftPad(nextSuffix,3,"0");
+        }
+    }
 }

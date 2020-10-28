@@ -15,7 +15,7 @@ import java.util.List;
  * @author
  * @Date 2019/5/7 21:27
  */
-@Transactional(readOnly = false)
+//@Transactional(readOnly = true)
 public abstract class CrudService<D extends CrudDao<T>,T extends BaseEntity<T>> extends BaseService {
 
     /**

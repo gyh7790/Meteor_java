@@ -8,15 +8,21 @@ import com.gyh.common.tools.StringUtils;
 import com.gyh.common.utils.R;
 import com.gyh.system.sys.dto.MenuDto;
 import com.gyh.system.sys.entity.Menu;
+import com.gyh.system.sys.entity.Role;
 import com.gyh.system.sys.entity.User;
 import com.gyh.system.sys.service.MenuService;
+import com.gyh.system.sys.service.RoleMenuService;
+import com.gyh.system.sys.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +36,9 @@ public class MenuController extends BaseController {
 
     @Autowired
     private MenuService menuService;
+
+    @Autowired
+    private RoleMenuService roleMenuService;
 
     @GetMapping(value = "{id}")
     public R get(@PathVariable String id) {
@@ -45,6 +54,18 @@ public class MenuController extends BaseController {
     public R list(Menu menu) {
         List<Menu> menuList = menuService.findList(menu);
         return R.ok("list",menuList);
+    }
+
+    @GetMapping("getTreeByRoleId")
+    public R getTreeByRoleId(){
+        List<MenuDto> result = menuService.getListByRoles(UserUtils.getRoleIds());
+        return R.ok(result);
+    }
+
+    @GetMapping("getMenuIdByRoleId")
+    public R getMenuIdByRoleId(String roleId){
+        List<String> reuslt = roleMenuService.getMenusByRoleId(Arrays.asList(roleId));
+        return R.ok(reuslt);
     }
 
 

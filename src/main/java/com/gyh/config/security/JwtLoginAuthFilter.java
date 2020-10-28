@@ -3,6 +3,7 @@ package com.gyh.config.security;
 import com.gyh.common.tools.JsonUtils;
 import com.gyh.common.utils.R;
 import com.gyh.system.sys.dto.LoginUser;
+import com.gyh.system.sys.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -65,41 +66,42 @@ public class JwtLoginAuthFilter extends UsernamePasswordAuthenticationFilter {
     /**
      * 登录验证成功后调用，验证成功后将生成Token
      */
-    @Override
-    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse resp, FilterChain chain, Authentication auth) throws IOException {
-
-        LoginUser jwtUser = (LoginUser) auth.getPrincipal();
-        logger.debug("JwtAuthUser:" + jwtUser.toString());
-        List<String> roles = new ArrayList<>();
-        Collection<? extends GrantedAuthority> authorities = jwtUser.getAuthorities();
-        for (GrantedAuthority authority : authorities){
-            roles.add(authority.getAuthority());
-        }
-        logger.debug("roles:"+roles);
-        String token = JwtTokenUtils.generateToken(jwtUser.getUsername(), roles, true);
-        logger.debug("token:"+token);
-        resp.setContentType("application/json;charset=utf-8");
-        PrintWriter out = resp.getWriter();
-        out.write(JsonUtils.toStrByJson(R.ok("登入成功").put("token",JwtTokenUtils.TOKEN_PREFIX+token)));
-        out.flush();
-        out.close();
-    }
-
-    /**
-     * description: 登录验证失败后调用，这里直接Json返回，实际上可以重定向到错误界面等
-     * 与AuthenticationFailureHandler作用相同
-     *
-     * @param request
-     * @param failed
-     * @return void
-     */
-    @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse resp, AuthenticationException failed) throws IOException, ServletException {
-        resp.setCharacterEncoding("utf-8");
-        resp.setContentType("application/json; charset=utf-8");
-        PrintWriter out = resp.getWriter();
-        out.write(JsonUtils.toStrByJson(R.ok(201,"用户名 或 密码有误...")));
-        out.flush();
-        out.close();
-    }
+//    @Override
+//    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse resp, FilterChain chain, Authentication auth) throws IOException {
+//
+//        LoginUser jwtUser = (LoginUser) auth.getPrincipal();
+//        logger.debug("JwtAuthUser:" + jwtUser.toString());
+//        List<String> roles = new ArrayList<>();
+//        Collection<? extends GrantedAuthority> authorities = jwtUser.getAuthorities();
+//        for (GrantedAuthority authority : authorities){
+//            roles.add(authority.getAuthority());
+//        }
+//        logger.debug("roles:"+roles);
+//        User user = new User(jwtUser);
+//        String token = JwtTokenUtils.generateToken(jwtUser.getId(), jwtUser.getUsername(), roles,true);
+//        logger.debug("token:"+token);
+//        resp.setContentType("application/json;charset=utf-8");
+//        PrintWriter out = resp.getWriter();
+//        out.write(JsonUtils.toStrByJson(R.ok("登入成功").put("token",JwtTokenUtils.TOKEN_PREFIX+token)));
+//        out.flush();
+//        out.close();
+//    }
+//
+//    /**
+//     * description: 登录验证失败后调用，这里直接Json返回，实际上可以重定向到错误界面等
+//     * 与AuthenticationFailureHandler作用相同
+//     *
+//     * @param request
+//     * @param failed
+//     * @return void
+//     */
+//    @Override
+//    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse resp, AuthenticationException failed) throws IOException, ServletException {
+//        resp.setCharacterEncoding("utf-8");
+//        resp.setContentType("application/json; charset=utf-8");
+//        PrintWriter out = resp.getWriter();
+//        out.write(JsonUtils.toStrByJson(R.ok(201,"用户名 或 密码有误...")));
+//        out.flush();
+//        out.close();
+//    }
 }

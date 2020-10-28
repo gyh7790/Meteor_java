@@ -3,6 +3,7 @@ package com.gyh.common.tools;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -46,6 +47,24 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             return sb.toString();
         }
         return StringUtils.capitalize(string);
+    }
+
+    /**
+     * 字符串加法运算
+     * @param a1
+     * @param a2
+     * @return
+     */
+    public static String add(String a1,String a2){
+        BigDecimal a = new BigDecimal(a1);
+        BigDecimal b = new BigDecimal(a2);
+        return a.add(b).toString();
+    }
+
+    public static String sub(String a1,String a2){
+        BigDecimal a = new BigDecimal(a1);
+        BigDecimal b = new BigDecimal(a2);
+        return a.divide(b).toString();
     }
 
     /**

@@ -16,4 +16,5 @@ public interface UserDao extends CrudDao<User> {
     User getByLoginName(@Param("loginName") String loginName);
 
     User getUserByEmail(@Param("email") String email);
+
 }

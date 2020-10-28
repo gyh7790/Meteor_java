@@ -9,6 +9,7 @@ import com.gyh.common.persistence.base.BaseEntity;
 public class Url extends BaseEntity<Url> {
 
     private String menuId;
+    private String code;
     private String menuName;
     private String name;
     private String url;
@@ -22,6 +23,14 @@ public class Url extends BaseEntity<Url> {
 
     public void setMenuId(String menuId) {
         this.menuId = menuId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getMenuName() {

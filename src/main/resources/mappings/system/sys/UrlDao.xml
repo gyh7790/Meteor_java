@@ -6,6 +6,7 @@
     <sql id="urlColumns">
         a.id AS "id",
         a.menu_id AS "menuId",
+        a.`code` AS "code",
         a.`name` AS "name",
         a.url AS "url",
         a.type AS "type",
@@ -28,15 +29,19 @@
         WHERE a.is_del = ${DEL_NORMAL}
     </select>
 
+    <select id="getMaxCode" resultType="string">
+        SELECT MAX(su.`code`) FROM `sys_url` su
+    </select>
+
     <insert id="insert" parameterType="Url">
-        REPLACE INTO sys_url (id,menu_id,name,url,type,is_auth,create_by,create_date,update_by,update_date,remarks,is_del)
-        VALUES (#{id},#{menuId},#{name},#{url},#{type},#{auth},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})
+        REPLACE INTO sys_url (id,menu_id,`code`,name,url,type,is_auth,create_by,create_date,update_by,update_date,remarks,is_del)
+        VALUES (#{id},#{menuId},#{code},#{name},#{url},#{type},#{auth},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})
     </insert>
 
     <insert id="insertList" parameterType="Url">
-        REPLACE INTO sys_url (id,menu_id,name,url,type,is_auth,permission,create_by,create_date,update_by,update_date,remarks,is_del) VALUES
+        REPLACE INTO sys_url (id,menu_id,`code`,name,url,type,is_auth,permission,create_by,create_date,update_by,update_date,remarks,is_del) VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{id},#{menuId},#{name},#{url},#{type},#{auth},#{permission},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})
+            (#{id},#{menuId},#{code},#{name},#{url},#{type},#{auth},#{permission},#{createBy.id},#{createDate},#{updateBy.id},#{updateDate},#{remarks},#{del})
         </foreach>
     </insert>
 

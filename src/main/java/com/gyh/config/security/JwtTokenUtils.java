@@ -1,5 +1,6 @@
 package com.gyh.config.security;
 
+import com.gyh.system.sys.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -23,6 +24,8 @@ public class JwtTokenUtils {
     // 添加角色的key
     private static final String ROLE_CLAIMS = "role";
 
+    private static final String USER = "user";
+
     // 过期时间是3600秒，既是1个小时
     private static final long EXPIRATION = 3600L;
 
@@ -30,7 +33,7 @@ public class JwtTokenUtils {
     private static final long EXPIRATION_REMEMBER = 604800L;
 
 
-    public static String generateToken(String username, List<String> roles, boolean isRememberMe){
+    public static String generateToken(String userId,String username, List<String> roles, boolean isRememberMe){
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
         HashMap<String, Object> map = new HashMap<>();
         map.put(ROLE_CLAIMS, roles);
@@ -42,6 +45,7 @@ public class JwtTokenUtils {
                 //设置发证人
                 .setIssuer(ISS)
                 .setSubject(username)
+                .setId(userId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .compact();
@@ -59,6 +63,11 @@ public class JwtTokenUtils {
     // 获取用户角色
     public static List<String> getUserRole(String token){
         return (List<String>) getTokenBody(token).get(ROLE_CLAIMS);
+    }
+
+    // 获取用户角色
+    public static String getUserId(String token){
+        return getTokenBody(token).getId();
     }
 
     /**

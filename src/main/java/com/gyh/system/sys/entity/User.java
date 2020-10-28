@@ -1,6 +1,9 @@
 package com.gyh.system.sys.entity;
 
 import com.gyh.common.persistence.base.BaseEntity;
+import com.gyh.common.tools.ListUtils;
+import com.gyh.common.tools.StringUtils;
+import com.gyh.system.sys.dto.LoginUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.List;
 public class User extends BaseEntity<User> {
 
     private String loginName; // 登入名称
+    private String nickName;    // 昵称
     private String password;    // 密码
     private String name;    // 用户名称
     private String email;   // 邮箱
@@ -22,12 +26,37 @@ public class User extends BaseEntity<User> {
 
     private List<Role> roles = new ArrayList<>();
 
+    public User(){}
+    public User(LoginUser loginUser){
+        this.id = loginUser.getId();
+        this.loginName = loginUser.getUsername();
+        this.roles = loginUser.getRoles();
+    }
+
+    public User(String userId,String userName,List<String> roleIds){
+        this.id = userId;
+        this.loginName = userName;
+        if (ListUtils.isNotEmpty(roleIds)) {
+            roleIds.stream().forEach(e->{
+                this.roles.add(new Role(e));
+            });
+        }
+    }
+
     public String getLoginName() {
         return loginName;
     }
 
     public void setLoginName(String loginName) {
         this.loginName = loginName;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getPassword() {
@@ -84,6 +113,17 @@ public class User extends BaseEntity<User> {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public void setRoleIds(String roleIds) {
+        if (StringUtils.isNotEmpty(roleIds) && ListUtils.isEmpty(this.roles)){
+            List<Role> roleList = new ArrayList<>();
+            String[] roleIdList = StringUtils.split(roleIds,",");
+            for (String str:roleIdList) {
+                roleList.add(new Role(str));
+            }
+            this.roles = roleList;
+        }
     }
 
     public List<Role> getRoles() {

@@ -71,7 +71,7 @@ public class UserController extends BaseConstructor {
      */
     @PostMapping("save")
     public R save(@RequestBody User user) {
-        int row = userService.save(user);
+        int row = userService.saveUserAndRole(user);
         if (row > 0) {
             return R.ok("成功保存(" + row +")条");
         } else {

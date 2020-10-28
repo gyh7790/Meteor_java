@@ -3,6 +3,8 @@ package com.gyh.system.sys.web;
 import com.gyh.common.persistence.model.Page;
 import com.gyh.common.persistence.web.BaseController;
 import com.gyh.common.utils.R;
+import com.gyh.system.sys.dto.RoleDto;
+import com.gyh.system.sys.dto.UserDto;
 import com.gyh.system.sys.entity.Role;
 import com.gyh.system.sys.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +75,11 @@ public class RoleController extends BaseController {
         }
     }
 
+    @PostMapping(value = "setAuthorize")
+    public R setAuthorize(@RequestBody RoleDto dto){
+        roleService.setAuthorize(dto.getId(),dto.getMenuIds());
+        return R.ok("授权成功");
+    }
 
     /**
      * 删除 数据

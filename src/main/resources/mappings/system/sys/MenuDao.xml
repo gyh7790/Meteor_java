@@ -78,6 +78,7 @@
         <foreach collection="roles" index="i" open="AND srm.role_id IN (" separator="," close=")">
             #{roles[${i}]}
         </foreach>
+        GROUP BY a.id
         ORDER BY a.sort
     </select>
 

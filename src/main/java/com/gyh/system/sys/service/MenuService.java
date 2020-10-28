@@ -86,6 +86,7 @@ public class MenuService extends CrudService<MenuDao, Menu> {
         List<String> roleIds = Global.getRoleIds();
         int rows = insert(menu);
         if (rows > 0) {
+            roleMenuService.deleteByMenuId(menu.getId());
             List<RoleMenu> list = new ArrayList<>();
             RoleMenu roleMenu = null;
             for (String roleId : roleIds) {

@@ -5,6 +5,7 @@
     <resultMap id="userResult" type="User">
         <id property="id" column="id" />
         <result property="loginName" column="loginName" />
+        <result property="nickName" column="nick_name"/>
         <result property="password" column="password" />
         <result property="name" column="name"/>
         <result property="email" column="email"/>
@@ -19,6 +20,7 @@
     <sql id="userColumns">
         a.id AS "id",
         a.login_name AS "loginName",
+        a.nick_name AS "nickName",
         a.password AS "password",
         a.name AS "name",
         a.email AS "email",
@@ -43,8 +45,9 @@
 
     <select id="findList" resultType="User">
         SELECT
-        <include refid="userColumns"/>
-        FROM sys_user a
+        <include refid="userColumns"/>,
+        GROUP_CONCAT(sur.role_id) AS "roleIds"
+        FROM sys_user a LEFT JOIN sys_user_role sur ON sur.user_id = a.id
         <where>
             a.is_del = ${DEL_NORMAL}
             <if test="keyword != null and keyword != ''">
@@ -54,6 +57,8 @@
                 OR a.phone like concat('%',#{keyword},'%'))
             </if>
         </where>
+        GROUP BY a.id
+        ORDER BY a.create_date DESC
     </select>
 
     <select id="findAllList" resultType="User">
@@ -61,7 +66,7 @@
         <include refid="userColumns"/>
         FROM sys_user a
         WHERE a.is_del = #{DEL_NORMAL}
-        ORDER BY a.id
+        ORDER BY a.create_date DESC
     </select>
 
     <select id="getByLoginName" resultMap="userResult">
@@ -88,6 +93,7 @@
         INSERT INTO sys_user (
             id,
             login_name,
+            nick_name,
             password,
             name,
             sex,
@@ -104,6 +110,7 @@
         ) VALUES (
             #{id},
             #{loginName},
+            #{nickName},
             #{password},
             #{name},
             #{sex},
@@ -115,7 +122,7 @@
             #{createDate},
             #{updateBy.id},
             #{updateDate},
-            #{remarks},
+            #{remarks}, 
             #{del}
         )
     </insert>
@@ -124,6 +131,7 @@
         UPDATE sys_user
         <set>
             <if test="loginName != null">login_name = #{loginName},</if>
+            <if test="nickName != null">nick_name = #{nickName},</if>
             <if test="password != null">password = #{password},</if>
             <if test="name != null">name = #{name},</if>
             <if test="sex != null">sex = #{sex},</if>
@@ -139,7 +147,7 @@
     </update>
 
     <update id="deleteById">
-        UPDATE sys_user SET is_del = 1 WHERE id = #{id}
+        UPDATE sys_user SET is_del = ${DEL_DELETE} WHERE id = #{id}
     </update>
 
 </mapper>

@@ -19,4 +19,12 @@ public class RoleUrlService extends CrudService<RoleUrlDao, RoleUrl> {
     public int insertList(List<RoleUrl> list){
         return dao.insertList(list);
     }
+
+    public int deleteByUrlId(String urlId){
+        return dao.deleteByUrlId(urlId);
+    }
+
+    public int deleteByRoleId(String roleId){
+        return dao.deleteByRoleId(roleId);
+    }
 }
