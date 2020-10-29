@@ -57,10 +57,14 @@ public class UrlService extends CrudService<UrlDao, Url> {
         if (row > 0) {
             roleUrlService.deleteByUrlId(url.getId());
             List<RoleUrl> roleUrlList = new ArrayList<>();
-            roleIds.parallelStream().forEach(e->{
-                roleUrlList.add(new RoleUrl(e,url.getId()));
-            });
-            roleUrlService.insertList(roleUrlList);
+            if (ListUtils.isNotEmpty(roleIds)) {
+                roleIds.parallelStream().forEach(e->{
+                    roleUrlList.add(new RoleUrl(e,url.getId()));
+                });
+            }
+            if (ListUtils.isNotEmpty(roleUrlList)) {
+                roleUrlService.insertList(roleUrlList);
+            }
         }
         return row;
     }

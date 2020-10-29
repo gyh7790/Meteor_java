@@ -9,6 +9,7 @@ import com.gyh.system.sys.entity.Menu;
 import com.gyh.system.sys.entity.Role;
 import com.gyh.system.sys.entity.RoleUrl;
 import com.gyh.system.sys.entity.Url;
+import com.gyh.system.sys.service.RoleService;
 import com.gyh.system.sys.service.UrlService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

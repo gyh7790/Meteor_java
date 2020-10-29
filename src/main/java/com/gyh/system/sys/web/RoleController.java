@@ -51,6 +51,15 @@ public class RoleController extends BaseController {
     }
 
     /**
+     * 根据
+     * @return
+     */
+    @GetMapping("getRolesByUrlId")
+    public R getRolesByUrlId(String urlId){
+        return R.ok(roleService.getRolesByUrlId(urlId));
+    }
+
+    /**
      * 查询全部数据
      * @return
      */

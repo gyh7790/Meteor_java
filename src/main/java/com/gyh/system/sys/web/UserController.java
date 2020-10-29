@@ -3,9 +3,11 @@ package com.gyh.system.sys.web;
 import com.gyh.common.persistence.model.Page;
 import com.gyh.common.tools.Assert;
 import com.gyh.common.utils.R;
+import com.gyh.system.sys.dto.UserDto;
 import com.gyh.system.sys.entity.Url;
 import com.gyh.system.sys.entity.User;
 import com.gyh.system.sys.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.yaml.snakeyaml.constructor.BaseConstructor;
@@ -66,11 +68,14 @@ public class UserController extends BaseConstructor {
 
     /**
      * 保存数据
-     * @param user
+     * @param userDto
      * @return
      */
     @PostMapping("save")
-    public R save(@RequestBody User user) {
+    public R save(@RequestBody UserDto userDto) {
+        User user = new User();
+        BeanUtils.copyProperties(userDto,user);
+
         int row = userService.saveUserAndRole(user);
         if (row > 0) {
             return R.ok("成功保存(" + row +")条");

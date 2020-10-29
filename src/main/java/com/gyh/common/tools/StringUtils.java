@@ -4,6 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -48,6 +51,15 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         }
         return StringUtils.capitalize(string);
     }
+
+    public static List<String> getListSplit(String str, String separatorChars) {
+        List<String> result = new ArrayList<>();
+        if (StringUtils.isEmpty(str)) {
+            return result;
+        }
+        return Arrays.asList(split(str,separatorChars));
+    }
+
 
     /**
      * 字符串加法运算

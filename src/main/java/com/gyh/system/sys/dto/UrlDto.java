@@ -13,6 +13,7 @@ public class UrlDto {
     private String name;
     private String url;
     private String menuId;
+    private String remarks;
     private List<String> roles;
 
     private String menuName;
@@ -98,5 +99,13 @@ public class UrlDto {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }

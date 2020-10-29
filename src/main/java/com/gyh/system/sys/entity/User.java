@@ -7,6 +7,7 @@ import com.gyh.system.sys.dto.LoginUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author gyh
@@ -124,6 +125,13 @@ public class User extends BaseEntity<User> {
             }
             this.roles = roleList;
         }
+    }
+
+    public List<String> getRoleIds() {
+        if (ListUtils.isNotEmpty(this.roles)) {
+            return this.roles.stream().map(Role::getId).collect(Collectors.toList());
+        }
+        return null;
     }
 
     public List<Role> getRoles() {

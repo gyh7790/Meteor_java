@@ -1,6 +1,11 @@
 package com.gyh.system.sys.entity;
 
 import com.gyh.common.persistence.base.BaseEntity;
+import com.gyh.common.tools.ListUtils;
+import com.gyh.common.tools.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author gyh
@@ -16,6 +21,8 @@ public class Url extends BaseEntity<Url> {
     private Integer type;
     private Integer auth;  //是否参与权限校验
     private String permission; // 授权字段
+
+    private List<String> roles;
 
     public String getMenuId() {
         return menuId;
@@ -80,6 +87,29 @@ public class Url extends BaseEntity<Url> {
     public void setPermission(String permission) {
         this.permission = permission;
     }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    public void setRoleIds(String roleIds) {
+        this.roles = StringUtils.getListSplit(roleIds,",");
+    }
+
+//    public void setRoleIds(String roleIds) {
+//        if (StringUtils.isNotEmpty(roleIds) && ListUtils.isEmpty(this.roles)){
+//            List<Role> roleList = new ArrayList<>();
+//            List<String> roleIdList = StringUtils.getListSplit(roleIds,",");
+//            roleIdList.stream().forEach(e->{
+//                roleList.add(new Role(e));
+//            });
+//            this.roles = roleList;
+//        }
+//    }
 
     @Override
     public String toString() {

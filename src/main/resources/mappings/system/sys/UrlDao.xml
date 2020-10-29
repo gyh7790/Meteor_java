@@ -23,10 +23,13 @@
     <select id="findList" resultType="Url">
         SELECT
         <include refid="urlColumns"/>,
-        sm.`name` AS "menuName"
+        sm.`name` AS "menuName",
+        GROUP_CONCAT( ru.role_id ) AS "roleIds"
         FROM sys_url a
+        LEFT JOIN sys_role_url ru ON a.id = ru.url_id
         LEFT JOIN sys_menu sm ON a.menu_id = sm.id
         WHERE a.is_del = ${DEL_NORMAL}
+        GROUP BY a.id
     </select>
 
     <select id="getMaxCode" resultType="string">
@@ -53,6 +56,7 @@
             <if test="type != null"> type = #{type},</if>
             <if test="auth != null">is_auth = #{auth},</if>
             <if test="permission != null">permission = #{permission},</if>
+            <if test="remarks != null"> remarks = #{remarks},</if>
             <if test="updateBy != null and updateBy.id != null">update_by = #{updateBy.id},</if>
             <if test="updateDate != null">update_date = #{updateDate},</if>
         </set>

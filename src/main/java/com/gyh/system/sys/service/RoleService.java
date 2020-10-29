@@ -31,6 +31,9 @@ public class RoleService extends CrudService<RoleDao, Role> {
         return dao.findAllList(new Role());
     }
 
+    public List<Role> getRolesByUrlId(String urlId){
+        return dao.getRolesByUrlId(urlId);
+    }
 
     @Transactional
     public void setAuthorize(String roleId,List<String> menuIds){
