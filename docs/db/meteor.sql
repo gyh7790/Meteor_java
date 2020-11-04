@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 12/07/2020 18:10:57
+ Date: 30/10/2020 00:24:24
 */
 
 SET NAMES utf8mb4;
@@ -336,7 +336,7 @@ CREATE TABLE `sys_area`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sys_area_parent_id`(`parent_id`) USING BTREE,
   INDEX `sys_area_del_flag`(`is_del`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 820001 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '区域表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 820000 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '区域表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_area
@@ -3591,7 +3591,7 @@ CREATE TABLE `sys_dict`  (
   INDEX `sys_dict_value`(`value`) USING BTREE,
   INDEX `sys_dict_label`(`label`) USING BTREE,
   INDEX `sys_dict_del_flag`(`is_del`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '字典表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '字典表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict
@@ -3658,13 +3658,13 @@ CREATE TABLE `sys_dict_type`  (
 -- ----------------------------
 INSERT INTO `sys_dict_type` VALUES ('0579d5beb10947018e528ab228c2ff86', 'sdfqwerw', 'reyrteuyrt', '1', '2020-07-07 23:29:55', '1', '2020-07-07 23:29:55', 'yutrytrewtwe', 0);
 INSERT INTO `sys_dict_type` VALUES ('09094af88118406e9cf4143c47eb3576', 'dfgdsg', 'gdfhhg', '1', '2020-07-07 23:29:30', '1', '2020-07-07 23:29:30', 'fghdfgh', 0);
-INSERT INTO `sys_dict_type` VALUES ('1', 'URL管理', 'url_type', '1', '2020-07-06 22:10:32', '1', '2020-07-06 22:10:32', 'url管理', 0);
 INSERT INTO `sys_dict_type` VALUES ('2', 'URLd理', 'url_type_sex', '1', '2020-07-06 22:06:38', '1', '2020-07-06 22:12:54', '性别分类', 0);
 INSERT INTO `sys_dict_type` VALUES ('20216cbf02734529b192bb10a3560a3a', 'dfgdsg', 'dfgdsf', '1', '2020-07-07 23:29:26', '1', '2020-07-07 23:29:26', 'dfgsdf', 0);
 INSERT INTO `sys_dict_type` VALUES ('3', '测试test', 'test_type', '1', '2020-07-06 21:59:24', '1', '2020-07-06 22:11:37', '测定法55', 0);
 INSERT INTO `sys_dict_type` VALUES ('640ebb6d912c4735bab3af90738f1968', 'dfgdsf', 'safsad', '1', '2020-07-07 23:29:41', '1', '2020-07-07 23:29:41', 'adfsaf', 0);
 INSERT INTO `sys_dict_type` VALUES ('884178214aef4f139f0288c3f4057188', 'sfddsf', 'dsfsd', '1', '2020-07-07 23:29:16', '1', '2020-07-07 23:29:16', 'sdf', 0);
 INSERT INTO `sys_dict_type` VALUES ('95422dd726fa49379fb361cc996c1ac9', 'dfgsf', 'sdfgd', '1', '2020-07-07 23:29:36', '1', '2020-07-07 23:29:36', 'gfhfgh', 0);
+INSERT INTO `sys_dict_type` VALUES ('97ef77f5add74df18b974936eaf25c83', '接口类型', 'url_type', '1', '2020-10-26 23:50:35', '1', '2020-10-26 23:50:35', '接口类型', 0);
 INSERT INTO `sys_dict_type` VALUES ('b826cb8d1a7b498b81cbad58c224e426', 'fgdd', 'dfgs', '1', '2020-07-07 23:29:21', '1', '2020-07-07 23:29:21', 'sdgfs', 1);
 INSERT INTO `sys_dict_type` VALUES ('be6d39cc8ef646308ee351d7079b54c1', 'dsf', 'sdfs', '1', '2020-07-07 23:45:17', '1', '2020-07-07 23:45:17', 'sdf', 0);
 INSERT INTO `sys_dict_type` VALUES ('c7a16cb48ed14431a2fb12eb460ee255', 'dsf', 'fs', '1', '2020-07-07 23:29:11', '1', '2020-07-07 23:29:11', 'dfs', 0);
@@ -3701,7 +3701,7 @@ CREATE TABLE `sys_menu`  (
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES ('1', '0', '0', '功能菜单', 0, 1, NULL, '', '', NULL, '1', '2020-06-13 23:06:30', '1', '2020-06-13 23:06:38', NULL, 0);
 INSERT INTO `sys_menu` VALUES ('2', '1', '1', '系统设置', 1, 100, NULL, 'sys', 'el-icon-setting', NULL, '1', '2020-06-12 15:20:54', '1', '2020-07-03 09:21:39', NULL, 0);
-INSERT INTO `sys_menu` VALUES ('20fce405d2ac49239dab0eaeae44cfc5', '2', '1,2', '定时任务', 2, 5, NULL, 'ssd', 'el-icon-timer', NULL, '1', '2020-07-07 23:24:03', '1', '2020-07-07 23:24:03', NULL, 0);
+INSERT INTO `sys_menu` VALUES ('20fce405d2ac49239dab0eaeae44cfc5', '2', '1,2', '定时任务', 2, 5, NULL, 'ssd', 'el-icon-timer', NULL, '1', '2020-07-07 23:24:03', '1', '2020-07-07 23:24:03', NULL, 1);
 INSERT INTO `sys_menu` VALUES ('3', '2', '1,2', 'url管理', 1, 4, NULL, 'url', 'el-icon-link', NULL, '1', '2020-06-13 23:06:30', '1', '2020-07-03 10:56:37', NULL, 0);
 INSERT INTO `sys_menu` VALUES ('4', '2', '1,2', '角色管理', 1, 3, NULL, 'role', 'peoples', NULL, '1', '2020-06-13 23:06:30', '1', '2020-07-03 10:56:07', NULL, 0);
 INSERT INTO `sys_menu` VALUES ('5', '2', '1,2', '菜单管理', 1, 2, NULL, 'menu', 'component', NULL, '1', '2020-06-13 23:06:30', '1', '2020-07-03 09:27:16', NULL, 0);
@@ -3721,7 +3721,7 @@ CREATE TABLE `sys_role`  (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名称',
   `enname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '英文名称',
   `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色类型',
-  `useable` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否可用',
+  `useable` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否可用(1:可用，0：不可用)',
   `data_scope` tinyint(1) NULL DEFAULT NULL COMMENT '数据范围',
   `create_by` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '创建者',
   `create_date` datetime(0) NOT NULL COMMENT '创建时间',
@@ -3735,7 +3735,10 @@ CREATE TABLE `sys_role`  (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', '研发人员', 'admin', '1', '0', 1, '1', '2020-06-14 00:02:04', '1', '2020-06-14 00:02:08', NULL, 0);
+INSERT INTO `sys_role` VALUES ('1', '研发人员', 'admin', '1', '1', 1, '1', '2020-06-14 00:02:04', '1', '2020-10-24 10:28:45', '系统开发人员-这里是注释', 0);
+INSERT INTO `sys_role` VALUES ('2', '测试人员', 'admin-test', '1', '1', 1, '1', '2020-06-14 00:02:04', '1', '2020-10-24 10:29:25', '系统测试人员', 0);
+INSERT INTO `sys_role` VALUES ('9ec8f2e9bfce4f479583ff597e3aefba', '测试人员', 'test-er', '1', '1', 1, '1', '2020-10-20 21:32:09', '1', '2020-10-20 21:32:31', '的是非得失', 1);
+INSERT INTO `sys_role` VALUES ('bf6dbe88c7244746b7d8935a5f12a99e', '产品人员', 'obj-test', '1', '1', 1, '1', '2020-10-20 21:30:14', '1', '2020-10-20 21:30:14', '这里是产品人员', 0);
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -3765,7 +3768,14 @@ INSERT INTO `sys_role_menu` VALUES ('1', 'a8c99dcd07314a1287d5f8510b1ae181');
 INSERT INTO `sys_role_menu` VALUES ('1', 'c315a5d255ac40d4ae3a44252651580f');
 INSERT INTO `sys_role_menu` VALUES ('1', 'e59bfea88b4f46a7ae5bed64393e46e4');
 INSERT INTO `sys_role_menu` VALUES ('1', 'f91c7c2402b64c889e440447eef2b3b1');
-INSERT INTO `sys_role_menu` VALUES ('1', 'null');
+INSERT INTO `sys_role_menu` VALUES ('2', 'a8c99dcd07314a1287d5f8510b1ae181');
+INSERT INTO `sys_role_menu` VALUES ('2', 'c315a5d255ac40d4ae3a44252651580f');
+INSERT INTO `sys_role_menu` VALUES ('bf6dbe88c7244746b7d8935a5f12a99e', '2');
+INSERT INTO `sys_role_menu` VALUES ('bf6dbe88c7244746b7d8935a5f12a99e', '3');
+INSERT INTO `sys_role_menu` VALUES ('bf6dbe88c7244746b7d8935a5f12a99e', '5');
+INSERT INTO `sys_role_menu` VALUES ('bf6dbe88c7244746b7d8935a5f12a99e', '58c95c67f68b482ba2c1a9974b5c9d95');
+INSERT INTO `sys_role_menu` VALUES ('bf6dbe88c7244746b7d8935a5f12a99e', '6');
+INSERT INTO `sys_role_menu` VALUES ('bf6dbe88c7244746b7d8935a5f12a99e', '7');
 
 -- ----------------------------
 -- Table structure for sys_role_url
@@ -3780,7 +3790,9 @@ CREATE TABLE `sys_role_url`  (
 -- ----------------------------
 -- Records of sys_role_url
 -- ----------------------------
-INSERT INTO `sys_role_url` VALUES ('1', 'd8007acbfe6145dcbe16fb060f0b5c71');
+INSERT INTO `sys_role_url` VALUES ('1', 'a1183c4dbc8148cbaeefd08d4047c691');
+INSERT INTO `sys_role_url` VALUES ('2', '0174686dccce454d801adf9ce6450b96');
+INSERT INTO `sys_role_url` VALUES ('2', 'a1183c4dbc8148cbaeefd08d4047c691');
 
 -- ----------------------------
 -- Table structure for sys_url
@@ -3788,6 +3800,8 @@ INSERT INTO `sys_role_url` VALUES ('1', 'd8007acbfe6145dcbe16fb060f0b5c71');
 DROP TABLE IF EXISTS `sys_url`;
 CREATE TABLE `sys_url`  (
   `id` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '编号',
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'URL链接编码',
+  `permission` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '授权字段',
   `menu_id` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单ID',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '接口名称',
   `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'url',
@@ -3796,17 +3810,19 @@ CREATE TABLE `sys_url`  (
   `create_by` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '创建者',
   `create_date` datetime(0) NOT NULL COMMENT '创建时间',
   `update_by` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '更新者',
-  `permission` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '授权字段',
   `update_date` datetime(0) NOT NULL COMMENT '更新时间',
   `remarks` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   `is_del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '删除标记，0：正常，1：删除',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_code`(`code`) USING BTREE COMMENT '保证code编码唯一'
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_url
 -- ----------------------------
-INSERT INTO `sys_url` VALUES ('d8007acbfe6145dcbe16fb060f0b5c71', '3', 'ddf', 'dfdf', NULL, 1, '1', '2020-07-03 12:11:58', '1', NULL, '2020-07-06 17:55:38', NULL, 0);
+INSERT INTO `sys_url` VALUES ('0174686dccce454d801adf9ce6450b96', 'A003', NULL, '5', '获取菜单列表', '/sys/menu/list', NULL, 0, '1', '2020-10-29 22:05:39', '1', '2020-10-30 00:16:54', '菜单管理页面使用的获取菜单列表接口', 0);
+INSERT INTO `sys_url` VALUES ('a1183c4dbc8148cbaeefd08d4047c691', 'A001', NULL, '5', '菜单接口', '/sys/menu/update', NULL, 0, '1', '2020-10-26 23:35:22', '1', '2020-10-29 23:56:57', NULL, 0);
+INSERT INTO `sys_url` VALUES ('d8007acbfe6145dcbe16fb060f0b5c71', 'A002', NULL, '3', 'ddf', 'dfdf', NULL, 1, '1', '2020-07-03 12:11:58', '1', '2020-10-29 23:17:29', NULL, 1);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -3815,12 +3831,14 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
   `id` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '编号',
   `login_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登入名',
+  `nick_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `type` tinyint(0) NULL DEFAULT NULL COMMENT '用户类型',
   `sex` tinyint(1) NULL DEFAULT NULL COMMENT '性别：1男，2女',
   `phone` char(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号',
+  `login_phone` tinyint(1) NULL DEFAULT 0 COMMENT '是否手机号登入(0:否，1：是)',
   `status` tinyint(1) NULL DEFAULT 0 COMMENT '状态，0：正常，1：删除，2封禁',
   `create_by` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '创建者',
   `create_date` datetime(0) NOT NULL COMMENT '创建时间',
@@ -3834,8 +3852,9 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'sadmin', '超级管理员', '123456', 'gyh7790@qq.com', 0, 1, '12345678978', 0, '1', '2020-06-12 15:12:56', '1', '2020-06-12 15:13:01', NULL, 0);
-INSERT INTO `sys_user` VALUES ('a525e450b950459a8aa427f31af3dad5', 'admin', '管理员', '123456', 'gyh7790@qq.com', 0, 1, '12345679889', 1, 'e950f48810634396a708dacd11042985', '2020-06-12 21:38:39', '1', '2020-06-12 22:11:51', NULL, 0);
+INSERT INTO `sys_user` VALUES ('1', 'sadmin', '系统创建者', '超级管理员', '123456', 'gyh7790@qq.com', 0, 1, '12345678978', NULL, 1, '1', '2020-06-12 15:12:56', '1', '2020-10-22 23:41:26', '超级管理备注打撒', 0);
+INSERT INTO `sys_user` VALUES ('2cdd3f49615e4f0abce0350528d9124d', 'guoyonghui', '小灰灰', '郭永辉', '123456789', NULL, NULL, 1, '13353708618', 0, NULL, '1', '2020-10-22 23:49:01', '1', '2020-10-30 00:14:50', '测试创建用户', 0);
+INSERT INTO `sys_user` VALUES ('a525e450b950459a8aa427f31af3dad5', 'admin', '系统管理者', '管理员', '123456', 'gyh7790@qq.com', 0, 2, '12345679889', NULL, 1, 'e950f48810634396a708dacd11042985', '2020-06-12 21:38:39', '1', '2020-10-30 00:15:11', '管理员备注', 0);
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -3851,6 +3870,11 @@ CREATE TABLE `sys_user_role`  (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('1', '1');
+INSERT INTO `sys_user_role` VALUES ('1', '2');
+INSERT INTO `sys_user_role` VALUES ('2cdd3f49615e4f0abce0350528d9124d', '1');
+INSERT INTO `sys_user_role` VALUES ('2cdd3f49615e4f0abce0350528d9124d', 'bf6dbe88c7244746b7d8935a5f12a99e');
+INSERT INTO `sys_user_role` VALUES ('a525e450b950459a8aa427f31af3dad5', '1');
+INSERT INTO `sys_user_role` VALUES ('a525e450b950459a8aa427f31af3dad5', 'bf6dbe88c7244746b7d8935a5f12a99e');
 
 -- ----------------------------
 -- Table structure for test_app
@@ -3869,12 +3893,12 @@ CREATE TABLE `test_app`  (
 -- ----------------------------
 -- Records of test_app
 -- ----------------------------
-INSERT INTO `test_app` VALUES ('1', '刘鹗', 12, '2019-05-25 16:54:21', 0);
-INSERT INTO `test_app` VALUES ('11', 'admin', 18, '2019-05-25 16:55:14', 0);
+INSERT INTO `test_app` VALUES ('1', '刘鹗', 18, '2019-05-25 16:54:21', 1);
+INSERT INTO `test_app` VALUES ('11', 'admin', 18, '2019-05-25 16:55:14', 1);
 INSERT INTO `test_app` VALUES ('13', 'admin1', 18, '2019-05-25 16:55:14', 0);
 INSERT INTO `test_app` VALUES ('16', 'adm', 18, '2019-05-25 16:55:14', 0);
-INSERT INTO `test_app` VALUES ('2', '柳树', 15, '2019-05-25 16:54:40', 0);
-INSERT INTO `test_app` VALUES ('3', '刘伟', 45, '2019-05-25 16:54:58', 0);
-INSERT INTO `test_app` VALUES ('4', '玩儿', 32, '2019-05-25 16:55:14', 0);
+INSERT INTO `test_app` VALUES ('2', '柳树', 18, '2019-05-25 16:54:40', 0);
+INSERT INTO `test_app` VALUES ('3', '刘伟', 18, '2019-05-25 16:54:58', 0);
+INSERT INTO `test_app` VALUES ('4', '玩儿', 18, '2019-05-25 16:55:14', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
