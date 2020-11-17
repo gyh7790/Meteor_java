@@ -1,5 +1,7 @@
 package com.gyh.common.tools;
 
+import org.springframework.util.AntPathMatcher;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -60,6 +62,16 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return Arrays.asList(split(str,separatorChars));
     }
 
+    /**
+     * 路由 匹配
+     * @param pattern 路由匹配表达式
+     * @param url 需要验证的路由
+     * @return
+     */
+    public static boolean matchUrl(String pattern,String url){
+        AntPathMatcher matcher = new AntPathMatcher();
+        return matcher.match(pattern,url);
+    }
 
     /**
      * 字符串加法运算

@@ -2,6 +2,7 @@ package com.gyh.common.tools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,6 +34,20 @@ public class ListUtils {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 校验 url集合中 是否含有
+     * @param urls
+     * @param url
+     * @return
+     */
+    public static boolean containsMatchUrl(List<String> urls,String url){
+        if (isNotEmpty(urls)) {
+            Optional<String> opt = urls.parallelStream().filter(e->StringUtils.matchUrl(e,url)).findFirst();
+            return opt.isPresent();
+        }
+        return false;
     }
 
     /**

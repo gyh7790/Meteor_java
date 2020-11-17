@@ -5,6 +5,7 @@ import com.gyh.common.tools.Global;
 import com.gyh.common.tools.ListUtils;
 import com.gyh.common.tools.StringUtils;
 import com.gyh.system.sys.dao.UrlDao;
+import com.gyh.system.sys.dto.UrlDto;
 import com.gyh.system.sys.entity.RoleUrl;
 import com.gyh.system.sys.entity.Url;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class UrlService extends CrudService<UrlDao, Url> {
     private MenuService menuService;
 
 
+
+    public List<UrlDto> getAuthIgnoreUri(){
+        return dao.getAuthIgnoreUri();
+    }
 
     public int addUrlAndRoleUrl(List<Url> list){
         int row = 0;

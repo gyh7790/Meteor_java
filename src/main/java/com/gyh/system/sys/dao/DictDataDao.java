@@ -1,6 +1,7 @@
 package com.gyh.system.sys.dao;
 
 import com.gyh.common.persistence.base.CrudDao;
+import com.gyh.system.sys.dto.DictDto;
 import com.gyh.system.sys.entity.DictData;
 import com.gyh.system.sys.entity.DictType;
 import org.apache.ibatis.annotations.Param;
@@ -33,4 +34,6 @@ public interface DictDataDao extends CrudDao<DictData> {
      * @param defaults 是否为 默认值
      */
     void setDefaultByType(@Param("dictType") String dictType,@Param("defaults") Integer defaults);
+
+    List<DictDto> getDictData(@Param("types") List<String> types);
 }

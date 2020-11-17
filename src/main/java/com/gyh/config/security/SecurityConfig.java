@@ -78,8 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        logger.debug("执行...用户授权操作 .............................");
-
         // 防止跨域请求伪造
         http.cors().and().csrf().disable();
 
@@ -162,7 +160,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
         PrintWriter out = resp.getWriter();
-        out.write(JsonUtils.toStrByJson(R.ok(403,"权限不足")));
+        out.write(JsonUtils.toStrByJson(R.ok(403,"权限不足！ 请联系管理员")));
         out.flush();
         out.close();
     };

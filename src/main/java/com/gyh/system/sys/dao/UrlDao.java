@@ -1,6 +1,7 @@
 package com.gyh.system.sys.dao;
 
 import com.gyh.common.persistence.base.CrudDao;
+import com.gyh.system.sys.dto.UrlDto;
 import com.gyh.system.sys.entity.Url;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UrlDao extends CrudDao<Url> {
     int putAuth(Url url);
 
     String getMaxCode();
+
+    List<UrlDto> getAuthIgnoreUri();
 }

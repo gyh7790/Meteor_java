@@ -1,6 +1,13 @@
 package com.gyh.system.sys.dto;
 
+import com.gyh.common.tools.ListUtils;
+import com.gyh.common.tools.StringUtils;
+import com.gyh.system.sys.entity.Role;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author gyh
@@ -99,6 +106,13 @@ public class UrlDto {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public void setRoleIds(String roleIds){
+        if (StringUtils.isNotEmpty(roleIds) && ListUtils.isEmpty(this.roles)){
+            String[] roleIdList = StringUtils.split(roleIds,",");
+            this.roles = Arrays.asList(roleIdList);
+        }
     }
 
     public String getRemarks() {

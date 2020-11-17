@@ -29,6 +29,15 @@
         LEFT JOIN sys_role_url ru ON a.id = ru.url_id
         LEFT JOIN sys_menu sm ON a.menu_id = sm.id
         WHERE a.is_del = ${DEL_NORMAL}
+        <if test="keyWord != null and keyWord != ''">
+            AND (a.`name` LIKE CONCAT('%',#{keyword},'%') OR a.url LIKE CONCAT('%',#{keyword},'%'))
+        </if>
+        <if test="type != null and type != ''">
+            AND a.type = #{type}
+        </if>
+        <if test="auth != null">
+            AND a.is_auth = #{auth}
+        </if>
         GROUP BY a.id
     </select>
 
@@ -77,4 +86,20 @@
         UPDATE sys_url set is_del = ${DEL_DELETE} WHERE id = #{id}
     </update>
 
+    <select id="getAuthIgnoreUri" resultType="com.gyh.system.sys.dto.UrlDto">
+        SELECT
+            su.id AS "id",
+            su.`code` AS `code`,
+            su.permission AS 'permission',
+            su.menu_id AS "menuId",
+            su.`name` AS `name`,
+            su.url AS "url",
+            su.type AS "type",
+            su.is_auth AS "auth",
+            GROUP_CONCAT(sru.role_id) AS 'roleIds'
+        FROM sys_url AS su
+        LEFT JOIN sys_role_url AS sru ON su.id = sru.url_id
+        WHERE su.is_del = '0'
+        GROUP BY su.id
+    </select>
 </mapper>

@@ -9,6 +9,8 @@ import com.gyh.system.sys.service.DictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author gyh
  * @Date 2020/7/3 15:25
@@ -25,6 +27,13 @@ public class DictDataController extends BaseController {
         Assert.isBlank(type, "请输入类型！");
         return R.ok().put("list", dictDataService.getListByType(type));
     }
+
+    @GetMapping("getDictData")
+    public R getDictData(@RequestParam(value = "types") List<String> types) {
+        Assert.isNull(types, "请输入类型！");
+        return R.ok(dictDataService.getDictData(types));
+    }
+
 
     @PutMapping("default")
     public R setDefault(@RequestBody DictData dictData){

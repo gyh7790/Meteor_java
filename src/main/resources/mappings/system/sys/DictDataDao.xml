@@ -109,4 +109,14 @@
         UPDATE sys_dict_data SET is_del = ${DEL_DELETE} WHERE id = #{id}
     </update>
 
+    <select id="getDictData" resultType="com.gyh.system.sys.dto.DictDto">
+        SELECT
+        <include refid="dictDataColumns"/>
+        FROM sys_dict_data a
+        WHERE a.is_del = ${DEL_NORMAL}
+        <foreach collection="types" item="type" open="AND a.dict_type IN (" separator="," close=")">
+            #{type}
+        </foreach>
+        ORDER BY a.dict_type,a.sort
+    </select>
 </mapper>
