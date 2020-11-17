@@ -2,6 +2,7 @@ package com.gyh.system.job.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gyh.common.utils.SpringContext;
+import com.gyh.config.executor.ExecutorConfig;
 import com.gyh.system.job.entity.ScheduleJob;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 定时任务  异常
@@ -22,7 +24,7 @@ import java.util.concurrent.Future;
  */
 public class ScheduleJobExecuter extends QuartzJobBean {
     private Logger logger = LoggerFactory.getLogger(getClass());
-    private ExecutorService service = Executors.newSingleThreadExecutor();
+    private ExecutorService service = ExecutorConfig.buildThreadPool();
 
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {

@@ -48,18 +48,22 @@ public class ScheduleJobService extends CrudService<ScheduleJobDao, ScheduleJob>
         }
     }
 
+    @Override
     public ScheduleJob get(String id) {
         return super.get(id);
     }
 
+    @Override
     public List<ScheduleJob> findList(ScheduleJob scheduleJob) {
         return super.findList(scheduleJob);
     }
 
+    @Override
     public Page<ScheduleJob> findPage(Page<ScheduleJob> page, ScheduleJob scheduleJob) {
         return super.findPage(page, scheduleJob);
     }
 
+    @Override
     @Transactional(readOnly = false)
     public int save(ScheduleJob scheduleJob) {
         if (StringUtils.isEmpty(scheduleJob.getId())) {

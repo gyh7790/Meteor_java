@@ -84,6 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login","/login_not").permitAll()
             .anyRequest().authenticated()
             .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                @Override
                 public <O extends FilterSecurityInterceptor> O postProcess(O o) {
                     o.setSecurityMetadataSource(selfFilterInvocationSecurityMetadataSource); //动态获取url权限配置
                     o.setAccessDecisionManager(selfAccessDecisionManager); //权限判断

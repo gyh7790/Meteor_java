@@ -69,9 +69,9 @@ public class SelfFilterInvocationSecurityMetadataSource implements FilterInvocat
         // 获取不需要校验的接口
         List<String> ignoreUriList = urlList.parallelStream().filter(e -> Constant.IsAuth.NOT.getValue() == e.getAuth()).map(UrlDto::getUrl).collect(Collectors.toList());
 
+        // 返回 null 不再执行权限校验
         if (ListUtils.containsMatchUrl(ignoreUriList,requestUrl)) {
             // set.add(new SecurityConfig("URL_ROLE_common"));
-            // 返回 null 不再执行权限校验
             return null;
         }
 

@@ -1,5 +1,6 @@
 package com.gyh.system.sys.service;
 
+import com.gyh.common.constant.Constant.*;
 import com.gyh.common.persistence.service.CrudService;
 import com.gyh.common.tools.Global;
 import com.gyh.system.sys.dao.MenuDao;
@@ -61,6 +62,7 @@ public class MenuService extends CrudService<MenuDao, Menu> {
      * @param menu
      * @return
      */
+    @Override
     public int save(Menu menu){
         return super.save(menu);
     }
@@ -92,7 +94,7 @@ public class MenuService extends CrudService<MenuDao, Menu> {
             for (String roleId : roleIds) {
                 roleMenu = new RoleMenu(roleId,menu.getId());
                 list.add(roleMenu);
-                for (String menuId : StringUtils.split(menu.getParentIds(),",")) {
+                for (String menuId : StringUtils.split(menu.getParentIds(), SymEnum.COMMA.getValue())) {
                     roleMenu = new RoleMenu(roleId,menuId);
                     list.add(roleMenu);
                 }

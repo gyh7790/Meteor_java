@@ -17,10 +17,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MyWebSocketHandler extends AbstractWebSocketHandler {
     private static final Logger logger = LoggerFactory.getLogger(MyWebSocketHandler.class);
 
-    public static final Map<String, WebSocketSession> webSocketSessionMap;
+    public static Map<String, WebSocketSession> WEB_WEB_SOCKET_SESSION_MAP;
 
     static {
-        webSocketSessionMap = new ConcurrentHashMap<String, WebSocketSession>();
+        WEB_WEB_SOCKET_SESSION_MAP = new ConcurrentHashMap<>();
     }
 
 
@@ -28,13 +28,13 @@ public class MyWebSocketHandler extends AbstractWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         logger.info("MyWebSocketHandler =======> afterConnectionEstablished..................");
         String token = (String) session.getAttributes().get("token");
-        if (webSocketSessionMap.get(token) == null || webSocketSessionMap.containsKey(token)) {
+        if (WEB_WEB_SOCKET_SESSION_MAP.get(token) == null || WEB_WEB_SOCKET_SESSION_MAP.containsKey(token)) {
             //判断是否存在该token
-            if (webSocketSessionMap.containsKey(token)) {
-                logger.info(token+"用户Socket会话已经替换:被替换sessionId=" + webSocketSessionMap.get(token).getId()
+            if (WEB_WEB_SOCKET_SESSION_MAP.containsKey(token)) {
+                logger.info(token+"用户Socket会话已经替换:被替换sessionId=" + WEB_WEB_SOCKET_SESSION_MAP.get(token).getId()
                         +"\t"+"替换sessionId="+session.getId());
             }
-            webSocketSessionMap.put(token,session);
+            WEB_WEB_SOCKET_SESSION_MAP.put(token,session);
         }
     }
 
@@ -51,7 +51,7 @@ public class MyWebSocketHandler extends AbstractWebSocketHandler {
      * @throws IOException
      */
     public void sendTextMessage(TextMessage message,String token)throws IOException {
-        WebSocketSession session = webSocketSessionMap.get(token);
+        WebSocketSession session = WEB_WEB_SOCKET_SESSION_MAP.get(token);
         if (session != null && session.isOpen()) {
             session.sendMessage(message);
         }
@@ -63,7 +63,7 @@ public class MyWebSocketHandler extends AbstractWebSocketHandler {
      * @throws IOException
      */
     public void sendBinaryMessage(TextMessage message,String token)throws IOException {
-        WebSocketSession session = webSocketSessionMap.get(token);
+        WebSocketSession session = WEB_WEB_SOCKET_SESSION_MAP.get(token);
         if (session != null && session.isOpen()) {
             session.sendMessage(message);
         }

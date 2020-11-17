@@ -75,8 +75,7 @@ public abstract class BaseEntity<T> extends RootEntity<T> {
 
     @JsonIgnore
     public int getDel() {
-        if (del == null) return 0;
-        return del;
+        return del == null ? 0 : del;
     }
 
     public void setDel(Integer del) {

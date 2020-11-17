@@ -1,5 +1,6 @@
 package com.gyh.common.tools;
 
+import com.gyh.common.constant.Constant;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.apache.tomcat.util.http.fileupload.RequestContext;
@@ -69,8 +70,8 @@ public class UploadUtils {
         // 验证
         infos[0] = this.validateFields(request);
         // 初始化表单元素
-        Map<String, Object> fieldsMap = new HashMap<String, Object>();
-        if (infos[0].equals("true")) {
+        Map<String, Object> fieldsMap = new HashMap<>();
+        if ("true".equals(infos[0])) {
             fieldsMap = this.initFields(request);
         }
         // 上传
@@ -161,7 +162,7 @@ public class UploadUtils {
     private Map<String, Object> initFields(HttpServletRequest request) {
 
         // 存储表单字段和非表单字段
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
 
         // 第一步：判断request
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
@@ -229,7 +230,7 @@ public class UploadUtils {
         if (item.getSize() > maxSize) { // 检查文件大小
             // TODO
             error = "上传文件大小超过限制";
-        } else if (!Arrays.<String> asList(extMap.get(dirName).split(",")).contains(fileExt)) {// 检查扩展名
+        } else if (!Arrays.<String> asList(extMap.get(dirName).split(Constant.SymEnum.COMMA.getValue())).contains(fileExt)) {// 检查扩展名
             error = "上传文件扩展名是不允许的扩展名。\n只允许" + extMap.get(dirName) + "格式。";
         } else {
             String newFileName;

@@ -100,17 +100,6 @@ public class Url extends BaseEntity<Url> {
         this.roles = StringUtils.getListSplit(roleIds,",");
     }
 
-//    public void setRoleIds(String roleIds) {
-//        if (StringUtils.isNotEmpty(roleIds) && ListUtils.isEmpty(this.roles)){
-//            List<Role> roleList = new ArrayList<>();
-//            List<String> roleIdList = StringUtils.getListSplit(roleIds,",");
-//            roleIdList.stream().forEach(e->{
-//                roleList.add(new Role(e));
-//            });
-//            this.roles = roleList;
-//        }
-//    }
-
     @Override
     public String toString() {
         return "Url{" +

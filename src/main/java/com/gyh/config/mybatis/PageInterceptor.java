@@ -100,6 +100,7 @@ public class PageInterceptor extends BaseInterceptor {
             this.boundSql = boundSql;
         }
 
+        @Override
         public BoundSql getBoundSql(Object parameterObject) {
             return boundSql;
         }

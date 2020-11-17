@@ -70,6 +70,7 @@ public interface CrudDao<T> extends BaseDao {
 
     /**
      * 删除数据（一般为逻辑删除，更新del_flag字段为1）
+     * @param id 需要产出的ID
      * @return
      */
     int deleteById(String id);

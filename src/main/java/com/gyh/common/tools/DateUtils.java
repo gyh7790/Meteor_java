@@ -125,7 +125,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
      * @return
      */
     public static long pastDays(Date date) {
-        long t = new Date().getTime() - date.getTime();
+        long t = System.currentTimeMillis() - date.getTime();
         return t / (24 * 60 * 60 * 1000);
     }
 
@@ -136,7 +136,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
      * @return
      */
     public static long pastHour(Date date) {
-        long t = new Date().getTime() - date.getTime();
+        long t = System.currentTimeMillis() - date.getTime();
         return t / (60 * 60 * 1000);
     }
 
@@ -147,7 +147,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
      * @return
      */
     public static long pastMinutes(Date date) {
-        long t = new Date().getTime() - date.getTime();
+        long t = System.currentTimeMillis() - date.getTime();
         return t / (60 * 1000);
     }
 
@@ -312,10 +312,8 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
             beginDate = format.parse(beginDateStr);
             endDate = format.parse(endDateStr);
             day = (int) ((endDate.getTime() - beginDate.getTime()) / (24 * 60 * 60 * 1000));
-            //System.out.println("相隔的天数="+day);
         } catch (ParseException e) {
             // TODO 自动生成 catch 块
-            //e.printStackTrace();
             day = -99999999;
         }
         return day;

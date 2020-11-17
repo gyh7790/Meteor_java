@@ -16,6 +16,7 @@ import java.util.List;
 @Service
 public class RoleUrlService extends CrudService<RoleUrlDao, RoleUrl> {
 
+    @Override
     public int insertList(List<RoleUrl> list){
         return dao.insertList(list);
     }

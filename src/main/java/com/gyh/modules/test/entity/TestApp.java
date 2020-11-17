@@ -16,10 +16,12 @@ public class TestApp extends BaseEntity {
     private Date createDate;
     private int del;
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
@@ -40,14 +42,17 @@ public class TestApp extends BaseEntity {
         this.age = age;
     }
 
+    @Override
     public Date getCreateDate() {
         return createDate;
     }
 
+    @Override
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
+    @Override
     public int getDel() {
         return del;
     }

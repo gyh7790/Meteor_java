@@ -35,7 +35,7 @@ public class JwtTokenUtils {
 
     public static String generateToken(String userId,String username, List<String> roles, boolean isRememberMe){
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>(1);
         map.put(ROLE_CLAIMS, roles);
         return Jwts.builder()
                 //采用HS512算法对JWT进行的签名,PRIMARY_KEY是我们的密钥

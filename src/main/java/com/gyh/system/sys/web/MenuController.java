@@ -1,5 +1,6 @@
 package com.gyh.system.sys.web;
 
+import com.gyh.common.constant.Constant.NumEnum;
 import com.gyh.common.persistence.model.Page;
 import com.gyh.common.persistence.web.BaseController;
 import com.gyh.common.tools.Global;
@@ -8,23 +9,15 @@ import com.gyh.common.tools.StringUtils;
 import com.gyh.common.utils.R;
 import com.gyh.system.sys.dto.MenuDto;
 import com.gyh.system.sys.entity.Menu;
-import com.gyh.system.sys.entity.Role;
-import com.gyh.system.sys.entity.User;
 import com.gyh.system.sys.service.MenuService;
 import com.gyh.system.sys.service.RoleMenuService;
 import com.gyh.system.sys.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author gyh
@@ -158,15 +151,15 @@ public class MenuController extends BaseController {
     @PostMapping("add")
     public R add(@RequestBody Menu menu) {
         // 添加 默认的父级ID
-        if (StringUtils.isEmpty(menu.getParentId())) menu.setParentId("1");
-        if (menu.getSort() == null) menu.setSort(1);
+        if (StringUtils.isEmpty(menu.getParentId())) { menu.setParentId(NumEnum.ONE.getStrValue()); }
+        if (menu.getSort() == null) { menu.setSort(NumEnum.ONE.getValue()); }
 
         // 添加 父级菜单处理
         Menu parentMenu = menuService.get(menu.getParentId());
         if (parentMenu != null) {
-            String ids = (parentMenu.getGrade() > 0 ? parentMenu.getParentIds()+"," : "" ) + parentMenu.getId();
+            String ids = (parentMenu.getGrade() > NumEnum.ZERO.getValue() ? parentMenu.getParentIds()+"," : "" ) + parentMenu.getId();
             menu.setParentIds(ids);
-            menu.setGrade(parentMenu.getGrade()+1);
+            menu.setGrade(parentMenu.getGrade() + NumEnum.ONE.getValue());
         }
 
         int row = menuService.insertAndRoleMenu(menu);
@@ -184,7 +177,7 @@ public class MenuController extends BaseController {
      */
     @PostMapping("update")
     public R update(@RequestBody Menu menu) {
-        if (menu.getSort() == null) menu.setSort(1);
+        if (menu.getSort() == null) { menu.setSort(1); }
 
         int row = menuService.update(menu);
         if (row > 0) {

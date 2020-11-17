@@ -53,6 +53,7 @@ public class LoginUser implements UserDetails, Serializable {
         this.username = username;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -61,6 +62,7 @@ public class LoginUser implements UserDetails, Serializable {
         this.password = password;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -126,8 +128,8 @@ public class LoginUser implements UserDetails, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
         LoginUser loginUser = (LoginUser) o;
         return username.equals(loginUser.username) &&
                 password.equals(loginUser.password);

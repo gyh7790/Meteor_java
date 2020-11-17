@@ -98,12 +98,12 @@ public class SQLHelper {
             }
             ps = conn.prepareStatement(countSql);
 
-            BoundSql countBS = new BoundSql(mappedStatement.getConfiguration(), countSql,
+            BoundSql countBs = new BoundSql(mappedStatement.getConfiguration(), countSql,
                     boundSql.getParameterMappings(), parameterObject);
 
 
 
-            SQLHelper.setParameters(ps, mappedStatement, countBS, parameterObject);
+            SQLHelper.setParameters(ps, mappedStatement, countBs, parameterObject);
             rs = ps.executeQuery();
             int count = 0;
             if (rs.next()) {

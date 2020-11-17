@@ -1,5 +1,6 @@
 package com.gyh.common.tools;
 
+import com.gyh.common.constant.Constant;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -31,7 +32,7 @@ public class Reflections {
      */
     public static Object invokeGetter(Object obj, String propertyName) {
         Object object = obj;
-        for (String name : org.apache.commons.lang3.StringUtils.split(propertyName, ".")){
+        for (String name : org.apache.commons.lang3.StringUtils.split(propertyName, Constant.SymEnum.DOT.getValue())){
             String getterMethodName = GETTER_PREFIX + org.apache.commons.lang3.StringUtils.capitalize(name);
             object = invokeMethod(object, getterMethodName, new Class[] {}, new Object[] {});
         }

@@ -1,5 +1,6 @@
 package com.gyh.common.tools;
 
+import com.gyh.common.constant.Constant.*;
 import org.springframework.util.AntPathMatcher;
 
 import java.io.ByteArrayInputStream;
@@ -25,8 +26,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return
      */
     public static String underlineCaseToUpper(String string) {
-        if (StringUtils.contains(string, '_')) {
-            String[] str = StringUtils.split(string, '_');
+        if (StringUtils.contains(string, SymEnum.UNDER_LINE.getValue())) {
+            String[] str = StringUtils.split(string, SymEnum.UNDER_LINE.getValue());
             StringBuffer sb = new StringBuffer(str[0]);
             for (int i = 1; i < str.length; i++) {
                 sb.append(StringUtils.capitalize(str[i]));
@@ -43,8 +44,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return
      */
     public static String initialCaseToUpper(String string) {
-        if (StringUtils.contains(string, '_')) {
-            String[] str = StringUtils.split(string, '_');
+        if (StringUtils.contains(string, SymEnum.UNDER_LINE.getValue())) {
+            String[] str = StringUtils.split(string, SymEnum.UNDER_LINE.getValue());
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < str.length; i++) {
                 sb.append(StringUtils.capitalize(str[i]));

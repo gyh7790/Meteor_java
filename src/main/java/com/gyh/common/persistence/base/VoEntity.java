@@ -21,10 +21,12 @@ public class VoEntity<T> extends BaseEntity<T>{
     // 结束日期
     protected LocalDateTime endTime;
 
+    @Override
     public String getKeyWord() {
         return keyWord;
     }
 
+    @Override
     public void setKeyWord(String keyWord) {
         this.keyWord = keyWord;
     }

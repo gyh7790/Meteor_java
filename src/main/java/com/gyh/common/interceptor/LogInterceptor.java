@@ -18,14 +18,14 @@ import java.text.SimpleDateFormat;
 public class LogInterceptor implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
 
-    private static final ThreadLocal<Long> startTimeThreadLocal = new NamedInheritableThreadLocal<>("ThreadLocal StartTime");
+    private static final ThreadLocal<Long>  START_TIME_THREAD_LOCAL = new NamedInheritableThreadLocal<>("ThreadLocal StartTime");
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         if (logger.isDebugEnabled()){
             long beginTime = System.currentTimeMillis();//1、开始时间
-            startTimeThreadLocal.set(beginTime);		//线程绑定变量（该数据只有当前请求的线程可见）
+            START_TIME_THREAD_LOCAL.set(beginTime);		//线程绑定变量（该数据只有当前请求的线程可见）
             logger.debug("开始计时: {}  URI: {}", new SimpleDateFormat("hh:mm:ss.SSS")
                     .format(beginTime), request.getRequestURI());
         }
@@ -36,12 +36,14 @@ public class LogInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         if (logger.isDebugEnabled()){
-            long beginTime = startTimeThreadLocal.get();//得到线程绑定的局部变量（开始时间）
+            long beginTime = START_TIME_THREAD_LOCAL.get();//得到线程绑定的局部变量（开始时间）
             long endTime = System.currentTimeMillis(); 	//2、结束时间
             logger.debug("计时结束：{}  耗时：{}  URI: {}  最大内存: {}m  已分配内存: {}m  已分配内存中的剩余空间: {}m  最大可用内存: {}m",
                     new SimpleDateFormat("hh:mm:ss.SSS").format(endTime), DateUtils.formatDateTime(endTime - beginTime),
                     request.getRequestURI(), Runtime.getRuntime().maxMemory()/1024/1024, Runtime.getRuntime().totalMemory()/1024/1024, Runtime.getRuntime().freeMemory()/1024/1024,
                     (Runtime.getRuntime().maxMemory()-Runtime.getRuntime().totalMemory()+Runtime.getRuntime().freeMemory())/1024/1024);
         }
+        // 回收线程
+        START_TIME_THREAD_LOCAL.remove();
     }
 }
