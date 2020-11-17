@@ -74,7 +74,7 @@ public class Global {
      * 生成UUID
      * @return
      */
-    public static String genUUID(){
+    public static String genUuId(){
         String uuid = UUID.randomUUID().toString().replaceAll("-","");
         return uuid;
     }

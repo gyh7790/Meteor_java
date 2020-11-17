@@ -1,8 +1,8 @@
 package com.gyh.system.sys.service;
 
-import com.gyh.common.persistence.service.CrudService;
+import com.gyh.common.persistence.model.Page;
+import com.gyh.common.persistence.service.BaseService;
 import com.gyh.common.tools.ListUtils;
-import com.gyh.common.utils.R;
 import com.gyh.system.sys.dao.UserDao;
 import com.gyh.system.sys.dao.UserRoleDao;
 import com.gyh.system.sys.dto.LoginUser;
@@ -22,58 +22,35 @@ import java.util.List;
  * @author gyh
  * @Date 2020/6/12 18:16
  */
-@Service
-public class UserService extends CrudService<UserDao,User> implements UserDetailsService {
+public interface UserService {
 
 
-    @Autowired
-    private MenuService menuService;
+    User get(String id);
 
-    @Autowired
-    private UserRoleDao userRoleDao;
-
-    @Override
-    public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException {
-        User user = dao.getByLoginName(loginName);
-        if (user == null) {
-            throw new UsernameNotFoundException("用户名不存在");
-        }
-        return new LoginUser(user);
-    }
+    UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException;
 
     /**
      * 根据 用户名获取用户
      * @param loginName 用户名
      * @return
      */
-    public User getUserByUserName(String loginName){
-        return dao.getByLoginName(loginName);
-    }
+    User getUserByUserName(String loginName);
 
     /**
      * 根据 用户名获取用户
      * @param email 邮箱
      * @return
      */
-    public User getUserByEmail(String email){
-        return dao.getUserByEmail(email);
-    }
+    public User getUserByEmail(String email);
 
 
-    @Transactional
-    public int saveUserAndRole(User user){
-        int row = save(user);
-        if (row > 0) {
-            userRoleDao.deleteByUserId(user.getId());
-            if (ListUtils.isNotEmpty(user.getRoles())) {
-                List<UserRole> userRoleList = new ArrayList<>();
-                user.getRoles().parallelStream().forEach(e->{
-                    userRoleList.add(new UserRole(user.getId(),e.getId()));
-                });
-                userRoleDao.insertUserAndRole(userRoleList);
-            }
-        }
-        return row;
-    }
+    public int saveUserAndRole(User user);
 
+    List<User> findList(User user);
+
+    Page<User> findPage(Page<User> userPage, User user);
+
+    int deleteById(String id);
+
+    int insert(User user);
 }

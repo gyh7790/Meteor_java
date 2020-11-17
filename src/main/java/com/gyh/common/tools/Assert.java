@@ -6,7 +6,7 @@ import com.gyh.common.exception.RRException;
  * @author gyh
  * @Date 2020/6/16 20:45
  */
-public abstract class Assert {
+public class Assert {
 
     public static void isBlank(String str, String message) {
         if (StringUtils.isBlank(str)) {

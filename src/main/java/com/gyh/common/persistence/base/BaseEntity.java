@@ -12,7 +12,7 @@ import java.util.Date;
  * @author gyh
  * @Date 2020/6/11 23:38
  */
-public abstract class BaseEntity<T> extends RootEntity<T> {
+public abstract class BaseEntity<T> extends BaseRootEntity<T> {
 
     protected String remarks;   //备注信息
     protected User createBy;  //创建者

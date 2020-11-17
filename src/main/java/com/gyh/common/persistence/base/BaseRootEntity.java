@@ -10,16 +10,16 @@ import java.io.Serializable;
  * @author gyh
  * @Date 2020/6/12 17:04
  */
-public abstract class RootEntity<T> implements Serializable {
+public abstract class BaseRootEntity<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     protected String id;    // 编号
 
     protected Page<T> page;
 
-    public RootEntity() {}
+    public BaseRootEntity() {}
 
-    public RootEntity(String id) {
+    public BaseRootEntity(String id) {
         this.id = id;
     }
 

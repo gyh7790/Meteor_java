@@ -1,6 +1,6 @@
 package com.gyh.system.sys.service;
 
-import com.gyh.common.persistence.service.CrudService;
+import com.gyh.common.persistence.service.BaseService;
 import com.gyh.system.sys.dao.MenuDao;
 import com.gyh.system.sys.dao.RoleDao;
 import com.gyh.system.sys.entity.Menu;
@@ -18,7 +18,7 @@ import java.util.List;
  * @Date 2020/6/14 0:11
  */
 @Service
-public class RoleService extends CrudService<RoleDao, Role> {
+public class RoleService extends BaseService<RoleDao, Role> {
 
     @Autowired
     private RoleMenuService roleMenuService;

@@ -1,6 +1,6 @@
 package com.gyh.system.sys.service;
 
-import com.gyh.common.persistence.service.CrudService;
+import com.gyh.common.persistence.service.BaseService;
 import com.gyh.system.sys.dao.DictDataDao;
 import com.gyh.system.sys.dao.MenuDao;
 import com.gyh.system.sys.dto.DictDto;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @Date 2020/7/3 15:22
  */
 @Service
-public class DictDataService extends CrudService<DictDataDao, DictData> {
+public class DictDataService extends BaseService<DictDataDao, DictData> {
 
     public List<DictData> getListByType(String type){
         return dao.getListByType(type);

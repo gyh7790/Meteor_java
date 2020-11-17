@@ -9,6 +9,7 @@ import com.gyh.system.sys.dto.MenuDto;
 import com.gyh.system.sys.entity.Menu;
 import com.gyh.system.sys.entity.Role;
 import com.gyh.system.sys.entity.User;
+import com.gyh.system.sys.service.Impl.UserServiceImpl;
 import com.gyh.system.sys.service.MenuService;
 import com.gyh.system.sys.service.UserService;
 import org.slf4j.Logger;
@@ -55,8 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private SelfAccessDecisionManager selfAccessDecisionManager; //权限校验
 
-    @Resource
-    private UserService userService;
+    @Autowired
+    private UserServiceImpl userService;
 
     @Resource
     private MenuService menuService;

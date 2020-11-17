@@ -1,7 +1,7 @@
 package com.gyh.system.sys.service;
 
 import com.gyh.common.constant.Constant.*;
-import com.gyh.common.persistence.service.CrudService;
+import com.gyh.common.persistence.service.BaseService;
 import com.gyh.common.tools.Global;
 import com.gyh.system.sys.dao.MenuDao;
 import com.gyh.system.sys.dto.MenuDto;
@@ -22,7 +22,7 @@ import java.util.List;
  * @version 2019年06月04日 15:29:44
  */
 @Service
-public class MenuService extends CrudService<MenuDao, Menu> {
+public class MenuService extends BaseService<MenuDao, Menu> {
 
     @Autowired
     private RoleMenuService roleMenuService;

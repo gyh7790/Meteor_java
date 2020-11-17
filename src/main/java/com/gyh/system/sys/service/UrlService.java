@@ -1,6 +1,6 @@
 package com.gyh.system.sys.service;
 
-import com.gyh.common.persistence.service.CrudService;
+import com.gyh.common.persistence.service.BaseService;
 import com.gyh.common.tools.Global;
 import com.gyh.common.tools.ListUtils;
 import com.gyh.common.tools.StringUtils;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @Date 2020/6/26 19:28
  */
 @Service
-public class UrlService extends CrudService<UrlDao, Url> {
+public class UrlService extends BaseService<UrlDao, Url> {
 
     @Autowired
     private RoleUrlService roleUrlService;

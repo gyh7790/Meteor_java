@@ -1,6 +1,6 @@
 package com.gyh.system.sys.service;
 
-import com.gyh.common.persistence.service.CrudService;
+import com.gyh.common.persistence.service.BaseService;
 import com.gyh.system.sys.dao.RoleDao;
 import com.gyh.system.sys.dao.RoleUrlDao;
 import com.gyh.system.sys.entity.Role;
@@ -14,7 +14,7 @@ import java.util.List;
  * @Date 2020/6/27 21:11
  */
 @Service
-public class RoleUrlService extends CrudService<RoleUrlDao, RoleUrl> {
+public class RoleUrlService extends BaseService<RoleUrlDao, RoleUrl> {
 
     @Override
     public int insertList(List<RoleUrl> list){

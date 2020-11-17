@@ -2,7 +2,7 @@ package com.gyh.system.job.service;
 
 import com.gyh.common.constant.Constant.*;
 import com.gyh.common.persistence.model.Page;
-import com.gyh.common.persistence.service.CrudService;
+import com.gyh.common.persistence.service.BaseService;
 import com.gyh.common.tools.StringUtils;
 import com.gyh.system.job.dao.ScheduleJobDao;
 import com.gyh.system.job.entity.ScheduleJob;
@@ -25,7 +25,7 @@ import java.util.UUID;
  */
 @Service
 @Transactional(readOnly = true)
-public class ScheduleJobService extends CrudService<ScheduleJobDao, ScheduleJob> {
+public class ScheduleJobService extends BaseService<ScheduleJobDao, ScheduleJob> {
 
     @Autowired
     @Qualifier("schedulerFactoryBean")
