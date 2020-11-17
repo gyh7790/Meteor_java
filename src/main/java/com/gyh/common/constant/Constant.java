@@ -30,4 +30,18 @@ public class Constant {
         }
     }
 
+    public enum IsAuth {
+
+        NOT(0),
+        AUTH(1);
+
+        private int value;
+
+        IsAuth(int value) {this.value = value;}
+
+        public int getValue() {
+            return value;
+        }
+    }
+
 }
