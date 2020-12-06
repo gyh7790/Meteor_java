@@ -16,6 +16,7 @@ import java.util.Date;
 
 /**
  * 控制器支持类
+ * @author guoyh
  * @version 2013-3-23
  */
 public abstract class BaseController {
@@ -33,13 +34,6 @@ public abstract class BaseController {
         return "error/400";
     }
 
-//	/**
-//	 * 授权登录异常
-//	 */
-//	@ExceptionHandler({AuthenticationException.class})
-//    public String authenticationException() {
-//        return "error/403";
-//    }
 
     /**
      * 初始化数据绑定
