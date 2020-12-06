@@ -13,8 +13,18 @@ import java.util.List;
  */
 public interface UserDao extends CrudDao<User> {
 
+    /**
+     * 根据 用户名 获取用户信息
+     * @param loginName 用名登入名称
+     * @return
+     */
     User getByLoginName(@Param("loginName") String loginName);
 
+    /**
+     * 根据 邮箱获取用户信息
+     * @param email 邮箱
+     * @return
+     */
     User getUserByEmail(@Param("email") String email);
 
 }

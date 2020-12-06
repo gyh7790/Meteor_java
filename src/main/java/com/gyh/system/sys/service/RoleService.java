@@ -1,6 +1,7 @@
 package com.gyh.system.sys.service;
 
 import com.gyh.common.persistence.service.BaseService;
+import com.gyh.common.tools.ListUtils;
 import com.gyh.system.sys.dao.MenuDao;
 import com.gyh.system.sys.dao.RoleDao;
 import com.gyh.system.sys.entity.Menu;
@@ -42,7 +43,9 @@ public class RoleService extends BaseService<RoleDao, Role> {
         menuIds.parallelStream().forEach(e->{
             list.add(new RoleMenu(roleId,e));
         });
-        roleMenuService.insertList(list);
+        if (ListUtils.isNotEmpty(list)) {
+            roleMenuService.insertList(list);
+        }
     }
 
 }

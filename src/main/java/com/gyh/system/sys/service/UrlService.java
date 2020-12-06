@@ -30,9 +30,8 @@ public class UrlService extends BaseService<UrlDao, Url> {
     private MenuService menuService;
 
 
-
-    public List<UrlDto> getAuthIgnoreUri(){
-        return dao.getAuthIgnoreUri();
+    public List<UrlDto> getAuthUri(){
+        return dao.getAuthUri();
     }
 
     public int addUrlAndRoleUrl(List<Url> list){

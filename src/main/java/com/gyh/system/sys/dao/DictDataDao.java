@@ -35,5 +35,10 @@ public interface DictDataDao extends CrudDao<DictData> {
      */
     void setDefaultByType(@Param("dictType") String dictType,@Param("defaults") Integer defaults);
 
+    /**
+     * 根据类型 获取 字典
+     * @param types
+     * @return
+     */
     List<DictDto> getDictData(@Param("types") List<String> types);
 }

@@ -103,7 +103,7 @@ public class UploadUtils {
         // 文件保存目录URL
         saveUrl = request.getContextPath() + "/" + basePath + "/";
         File uploadDir = new File(savePath);
-        if (contentType == null || !contentType.startsWith("multipart")) {
+        if (contentType == null || !contentType.startsWith(Constant.KeyEnum.MULTIPART.getValue())) {
             // TODO
             System.out.println("请求不包含multipart/form-data流");
             errorInfo = "请求不包含multipart/form-data流";

@@ -13,5 +13,9 @@ import java.util.List;
  */
 public interface TestAppDao extends CrudDao {
 
+    /**
+     * 查询 测试数据
+     * @return
+     */
     List<TestApp> findList();
 }

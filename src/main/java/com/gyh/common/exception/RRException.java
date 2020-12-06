@@ -2,6 +2,8 @@ package com.gyh.common.exception;
 
 /**
  * 自定义异常
+ * @author guoyh
+ * @version 2020-5-23
  */
 public class RRException extends RuntimeException {
     private static final long serialVersionUID = 1L;

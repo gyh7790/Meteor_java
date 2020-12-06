@@ -12,9 +12,22 @@ import java.util.List;
  */
 public interface UrlDao extends CrudDao<Url> {
 
+    /**
+     * 修改 url
+     * @param url
+     * @return
+     */
     int putAuth(Url url);
 
+    /**
+     * 获取 url的code编码
+     * @return
+     */
     String getMaxCode();
 
-    List<UrlDto> getAuthIgnoreUri();
+    /**
+     * 获取 url
+     * @return
+     */
+    List<UrlDto> getAuthUri();
 }

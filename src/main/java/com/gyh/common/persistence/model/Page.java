@@ -1,6 +1,7 @@
 package com.gyh.common.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gyh.common.constant.Constant;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import java.util.regex.Pattern;
 /**
  * 分页类
  * @version V1.0
+ * @author guoyh
+ * @version 2020-5-23
  * @param <T>
  */
 public class Page<T> {
@@ -68,25 +71,25 @@ public class Page<T> {
 	 */
 	public Page(HttpServletRequest request, HttpServletResponse response, int defaultPageSize) {
 		// 设置页码参数（传递repage参数，来记住页码）
-		String no = request.getParameter("pageNo");
+		String no = request.getParameter(Constant.KeyEnum.PAGE_NO.getValue());
 		if (StringUtils.isNumeric(no)) {
 			this.setPageNo(Integer.parseInt(no));
-		} else if (request.getParameter("repage") != null) {
+		} else if (request.getParameter(Constant.KeyEnum.REPAGE.getValue()) != null) {
 			if (StringUtils.isNumeric(no)) {
 				this.setPageNo(Integer.parseInt(no));
 			}
 		}
 		// 设置页面分页函数
-		String funcName = request.getParameter("funcName");
+		String funcName = request.getParameter(Constant.KeyEnum.FUNC_NAME.getValue());
 		if (StringUtils.isNotBlank(funcName)) {
 			this.setFuncName(funcName);
-		} else if (request.getParameter("repage") != null) {
+		} else if (request.getParameter(Constant.KeyEnum.REPAGE.getValue()) != null) {
 			if (StringUtils.isNotBlank(funcName)) {
 				this.setFuncName(funcName);
 			}
 		}
 		// 设置排序参数
-		String orderBy = request.getParameter("orderBy");
+		String orderBy = request.getParameter(Constant.KeyEnum.ORDER_BY.getValue());
 		if (StringUtils.isNotBlank(orderBy)) {
 			this.setOrderBy(orderBy);
 		}

@@ -25,8 +25,19 @@ import java.util.List;
 public interface UserService {
 
 
+    /**
+     * 获取 用户信息
+     * @param id 用户id
+     * @return
+     */
     User get(String id);
 
+    /**
+     * 获取 用户信息
+     * @param loginName 用户登入名
+     * @return
+     * @throws UsernameNotFoundException
+     */
     UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException;
 
     /**
@@ -41,10 +52,15 @@ public interface UserService {
      * @param email 邮箱
      * @return
      */
-    public User getUserByEmail(String email);
+    User getUserByEmail(String email);
 
 
-    public int saveUserAndRole(User user);
+    /**
+     * 添加 用户信息
+     * @param user
+     * @return
+     */
+    int saveUserAndRole(User user);
 
     List<User> findList(User user);
 

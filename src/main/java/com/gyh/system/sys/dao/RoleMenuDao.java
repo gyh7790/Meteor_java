@@ -21,5 +21,10 @@ public interface RoleMenuDao extends CrudDao<RoleMenu> {
      */
     List<String> getMenusByRoleId(@Param("roleIds") List<String> roleIds);
 
+    /**
+     * 删除 菜单
+     * @param menuId 菜单id
+     * @return
+     */
     int deleteByMenuId(@Param("menuId") String menuId);
 }

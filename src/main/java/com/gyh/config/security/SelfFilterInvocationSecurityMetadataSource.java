@@ -64,7 +64,7 @@ public class SelfFilterInvocationSecurityMetadataSource implements FilterInvocat
         // 获取请求地址
         String requestUrl = StringUtils.substringBefore(((FilterInvocation) o).getRequestUrl(),"?");
 
-        List<UrlDto> urlList = urlService.getAuthIgnoreUri();
+        List<UrlDto> urlList = urlService.getAuthUri();
 
         // 获取不需要校验的接口
         List<String> ignoreUriList = urlList.parallelStream().filter(e -> Constant.IsAuth.NOT.getValue() == e.getAuth()).map(UrlDto::getUrl).collect(Collectors.toList());

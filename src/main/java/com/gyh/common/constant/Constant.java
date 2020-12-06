@@ -21,7 +21,7 @@ public class Constant {
 
         private int value;
 
-        private ScheduleStatus(int value) {
+        ScheduleStatus(int value) {
             this.value = value;
         }
 
@@ -109,6 +109,46 @@ public class Constant {
             return value;
         }
 
+    }
+
+
+    /**
+     *
+     */
+    public enum KeyEnum {
+
+        /**
+         * 分页 页码
+         */
+        PAGE_NO("pageNo"),
+        /**
+         * 上传 类型
+         */
+        MULTIPART("multipart"),
+        /**
+         * 方法名称
+         */
+        FUNC_NAME("funcName"),
+
+        /**
+         * 重新 包装
+         */
+        REPAGE("repage"),
+
+        /**
+         * 排序 字段
+         */
+        ORDER_BY("orderBy");
+
+        private String value;
+
+        KeyEnum(String value){
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 
 }
