@@ -7,6 +7,10 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author guoyh
+ * @version 2020-5-23
+ */
 @RestController
 @EnableCaching
 @MapperScan("com.gyh.*.*.dao")
