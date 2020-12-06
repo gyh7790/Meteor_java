@@ -1,4 +1,5 @@
 <configuration>
+    <springProperty scope="context" name="log.level" source="log.level"/>
     <property name="LOG_HOME" value="${user.dir}/../logs/meteor"/>
     <property name="LOG_PATTERN" value="%d{yyyy/MM/dd-HH:mm:ss} %-5level [%thread] %logger - %msg%n"/>
 
@@ -22,8 +23,10 @@
         </encoder>
     </appender>
 
+    <!--  打印 hikari 连接池的配置信息  -->
+    <logger name="com.zaxxer.hikari.HikariConfig" level="${log.level}"/>
 
-    <logger name="com.gyh" additivity="false" level="DEBUG">
+    <logger name="com.gyh" additivity="false" level="${log.level}">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </logger>
