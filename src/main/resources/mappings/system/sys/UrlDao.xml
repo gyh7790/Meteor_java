@@ -86,7 +86,7 @@
         UPDATE sys_url set is_del = ${DEL_DELETE} WHERE id = #{id}
     </update>
 
-    <select id="getAuthIgnoreUri" resultType="com.gyh.system.sys.dto.UrlDto">
+    <select id="getAuthUri" resultType="com.gyh.system.sys.dto.UrlDto">
         SELECT
             su.id AS "id",
             su.`code` AS `code`,
