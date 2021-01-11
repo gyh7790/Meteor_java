@@ -5,6 +5,7 @@
     <sql id="urlDebugColumns">
         a.id AS id,
         a.`name` AS `name`,
+        a.url AS "url",
         a.url_id AS "urlId",
         a.method AS "method",
         a.desc AS "desc",

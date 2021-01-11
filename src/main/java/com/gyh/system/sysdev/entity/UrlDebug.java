@@ -12,13 +12,17 @@ public class UrlDebug extends BaseEntity<UrlDebug> {
 
     private String name;
     private String urlId;
-    private Integer method;
+    private String url;
+    private String method;
     private String desc;
     private String requestHeaders;
-    private String responseHeaders;
     private String parameters;
     private String body;
     private String bodyDesc;
+
+    private String responseHeaders;
+    private String response;
+    private String responseDesc;
 
     public String getName() {
         return name;
@@ -36,11 +40,19 @@ public class UrlDebug extends BaseEntity<UrlDebug> {
         this.urlId = urlId;
     }
 
-    public Integer getMethod() {
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getMethod() {
         return method;
     }
 
-    public void setMethod(Integer method) {
+    public void setMethod(String method) {
         this.method = method;
     }
 
@@ -66,6 +78,22 @@ public class UrlDebug extends BaseEntity<UrlDebug> {
 
     public void setResponseHeaders(String responseHeaders) {
         this.responseHeaders = responseHeaders;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+    public String getResponseDesc() {
+        return responseDesc;
+    }
+
+    public void setResponseDesc(String responseDesc) {
+        this.responseDesc = responseDesc;
     }
 
     public String getParameters() {
