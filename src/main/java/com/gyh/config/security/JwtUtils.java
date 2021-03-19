@@ -13,7 +13,7 @@ import java.util.List;
  * @author gyh
  * @Date 2020/6/14 21:05
  */
-public class JwtTokenUtils {
+public class JwtUtils {
 
     public static final String TOKEN_PREFIX = "Meteor_";
 

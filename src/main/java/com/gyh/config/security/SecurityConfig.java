@@ -137,12 +137,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         List<MenuDto> menuList = menuService.getListByRoles(roleId);
 
         logger.debug("roles:"+roleId);
-        String token = JwtTokenUtils.generateToken(jwtUser.getId(),jwtUser.getUsername(), roleId, true);
+        String token = JwtUtils.generateToken(jwtUser.getId(),jwtUser.getUsername(), roleId, true);
         logger.debug("token:"+token);
 
         resp.setContentType("application/json;charset=utf-8");
         PrintWriter out = resp.getWriter();
-        out.write(JsonUtils.toStrByJson(R.ok("登录成功").put("token",JwtTokenUtils.TOKEN_PREFIX+token).put("navList",menuList)));
+        out.write(JsonUtils.toStrByJson(R.ok("登录成功").put("token",JwtUtils.TOKEN_PREFIX+token).put("navList",menuList)));
         out.flush();
         out.close();
     };

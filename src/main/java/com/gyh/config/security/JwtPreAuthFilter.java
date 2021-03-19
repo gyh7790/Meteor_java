@@ -48,7 +48,7 @@ public class JwtPreAuthFilter extends BasicAuthenticationFilter {
         String tokenHeader = request.getHeader("token");
 
         // 如果请求头中没有Authorization信息则直接放行了
-        if (tokenHeader == null || !tokenHeader.startsWith(JwtTokenUtils.TOKEN_PREFIX)) {
+        if (tokenHeader == null || !tokenHeader.startsWith(JwtUtils.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
             return;
         }
@@ -65,10 +65,10 @@ public class JwtPreAuthFilter extends BasicAuthenticationFilter {
      */
     private UsernamePasswordAuthenticationToken getAuthentication(String tokenHeader) {
         //解析Token时将“Bearer ”前缀去掉
-        String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
-        String userId = JwtTokenUtils.getUserId(token);
-        String username = JwtTokenUtils.getUsername(token);
-        List<String> roles = JwtTokenUtils.getUserRole(token);
+        String token = tokenHeader.replace(JwtUtils.TOKEN_PREFIX, "");
+        String userId = JwtUtils.getUserId(token);
+        String username = JwtUtils.getUsername(token);
+        List<String> roles = JwtUtils.getUserRole(token);
         Collection<GrantedAuthority> authorities = new HashSet<>();
         if (roles!=null) {
             for (String role : roles) {
