@@ -12,6 +12,7 @@
 * springboot 技术框架
 * Quart 定时任务
 * Security 安全框架
+* RabbitMq
 
 # 开发环境
 * IDEA 编写程序
