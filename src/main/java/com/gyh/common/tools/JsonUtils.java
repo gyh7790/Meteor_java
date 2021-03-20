@@ -3,6 +3,7 @@ package com.gyh.common.tools;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,5 +32,16 @@ public class JsonUtils extends ObjectMapper {
     public static <T> T fromJson(String jsonStr,Class<T> clazz){
         JSONObject json = JSONObject.parseObject(jsonStr);
         return JSON.toJavaObject(json,clazz);
+    }
+
+    /**
+     *
+     * @param str
+     * @return
+     */
+    public static JSONObject toJsonObject(String str){
+
+        JSONObject json = JSONObject.parseObject(str);
+        return json;
     }
 }

@@ -8,6 +8,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author gyh
@@ -21,10 +22,6 @@ public class JwtUtils {
     private static final String PRIMARY_KEY = "jwtsecretdemo";
     //签发者
     private static final String ISS = "Gent.Ni";
-    // 添加角色的key
-    private static final String ROLE_CLAIMS = "role";
-
-    private static final String USER = "user";
 
     // 过期时间是3600秒，既是1个小时
     private static final long EXPIRATION = 3600L;
@@ -32,11 +29,16 @@ public class JwtUtils {
     // 选择了记住我之后的过期时间为7天
     private static final long EXPIRATION_REMEMBER = 604800L;
 
+    // 添加角色的key
+    public static final String ROLE_CLAIMS = "role";
+    public static final String USER_NAME = "userName";
+    public static final String USER_PHONE = "userPhone";
 
-    public static String generateToken(String userId,String username, List<String> roles, boolean isRememberMe){
+    private static final String USER = "user";
+
+
+    public static String generateToken(String userId, String username, Map<String, Object> map, boolean isRememberMe){
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
-        HashMap<String, Object> map = new HashMap<>(1);
-        map.put(ROLE_CLAIMS, roles);
         return Jwts.builder()
                 //采用HS512算法对JWT进行的签名,PRIMARY_KEY是我们的密钥
                 .signWith(SignatureAlgorithm.HS512, PRIMARY_KEY)
@@ -58,6 +60,25 @@ public class JwtUtils {
      */
     public static String getUsername(String token){
         return getTokenBody(token).getSubject();
+    }
+
+
+    /**
+     * 获取用户名称
+     * @param token
+     * @return
+     */
+    public static String getName(String token){
+        return (String) getTokenBody(token).get(USER_NAME);
+    }
+
+    /**
+     * 获取用户手机号
+     * @param token
+     * @return
+     */
+    public static String getPhone(String token){
+        return (String) getTokenBody(token).get(USER_PHONE);
     }
 
     // 获取用户角色

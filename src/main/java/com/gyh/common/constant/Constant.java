@@ -6,6 +6,19 @@ package com.gyh.common.constant;
  */
 public class Constant {
 
+    public enum BusinessStatus
+    {
+        /**
+         * 成功
+         */
+        SUCCESS,
+
+        /**
+         * 失败
+         */
+        FAIL,
+    }
+
     /**
      * 定时任务状态
      */

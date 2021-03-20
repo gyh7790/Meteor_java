@@ -34,9 +34,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 import javax.annotation.Resource;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -134,10 +132,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             roleId = jwtUser.getRoles().stream().map(Role::getId).collect(Collectors.toList());
         }
 
+
         List<MenuDto> menuList = menuService.getListByRoles(roleId);
 
         logger.debug("roles:"+roleId);
-        String token = JwtUtils.generateToken(jwtUser.getId(),jwtUser.getUsername(), roleId, true);
+
+        Map<String,Object> map = new HashMap<>();
+        map.put(JwtUtils.ROLE_CLAIMS, roleId);
+        map.put(JwtUtils.USER_NAME, jwtUser.getName());
+        map.put(JwtUtils.USER_PHONE, jwtUser.getPhone());
+        String token = JwtUtils.generateToken(jwtUser.getId(),jwtUser.getUsername(), map, true);
         logger.debug("token:"+token);
 
         resp.setContentType("application/json;charset=utf-8");

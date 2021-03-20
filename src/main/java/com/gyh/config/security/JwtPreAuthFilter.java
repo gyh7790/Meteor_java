@@ -76,7 +76,10 @@ public class JwtPreAuthFilter extends BasicAuthenticationFilter {
             }
         }
         if (username != null){
-            return new UsernamePasswordAuthenticationToken(new User(userId,username,roles), null, authorities);
+            User user = new User(userId,username,roles);
+            user.setName(JwtUtils.getName(token));
+            user.setPhone(JwtUtils.getPhone(token));
+            return new UsernamePasswordAuthenticationToken(user, null, authorities);
         }
         return null;
     }

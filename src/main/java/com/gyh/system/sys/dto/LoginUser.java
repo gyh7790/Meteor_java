@@ -20,6 +20,8 @@ public class LoginUser implements UserDetails, Serializable {
     private String password;
     private String email;
     private String captcha;
+    private String phone;
+    private String name;
 
     private List<Role> roles = new ArrayList<>();
 
@@ -36,6 +38,8 @@ public class LoginUser implements UserDetails, Serializable {
         this.username=user.getLoginName();
         this.password=user.getPassword();
         this.roles = user.getRoles();
+        this.name = user.getName();
+        this.phone = user.getPhone();
     }
 
     public LoginUser(User user,List<Role> roles){
@@ -81,6 +85,22 @@ public class LoginUser implements UserDetails, Serializable {
 
     public String getCaptcha() {
         return captcha;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

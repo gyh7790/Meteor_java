@@ -1,5 +1,6 @@
 package com.gyh.system.sys.web;
 
+import com.gyh.common.log.annotation.Log;
 import com.gyh.common.persistence.model.Page;
 import com.gyh.common.persistence.web.BaseController;
 import com.gyh.common.tools.ListUtils;
@@ -35,6 +36,7 @@ public class UrlController extends BaseController {
      * @return
      */
     @GetMapping("page")
+    @Log(title = "url管理")
     public R page(Url url, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
         Page<Url> page = urlService.findPage(new Page<Url>(pageNo, pageSize),url);
         return R.ok("page", page);
