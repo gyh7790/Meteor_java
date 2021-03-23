@@ -45,9 +45,10 @@ public class DictTypeController extends BaseController {
      * @return
      */
     @GetMapping("page")
-    public R page(DictType dictType, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
-        Page<DictType> page = dictTypeService.findPage(new Page<DictType>(pageNo, pageSize),dictType);
-        return R.ok("page", page);
+    public R page(DictType dictType){
+        setPage();
+        List<DictType> list = dictTypeService.findList(dictType);
+        return R.page(list);
     }
 
     /**

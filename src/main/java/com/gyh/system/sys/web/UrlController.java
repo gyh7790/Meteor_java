@@ -37,9 +37,10 @@ public class UrlController extends BaseController {
      */
     @GetMapping("page")
     @Log(title = "url管理")
-    public R page(Url url, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
-        Page<Url> page = urlService.findPage(new Page<Url>(pageNo, pageSize),url);
-        return R.ok("page", page);
+    public R page(Url url){
+        setPage();
+        List<Url> list = urlService.findList(url);
+        return R.page(list);
     }
 
     @GetMapping("getCode")

@@ -1,6 +1,13 @@
 package com.gyh.common.persistence.web;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.gyh.common.persistence.page.PageModel;
+import com.gyh.common.persistence.page.PageParam;
+import com.gyh.common.tools.Assert;
 import com.gyh.common.tools.DateUtils;
+import com.gyh.common.tools.SqlUtils;
+import com.gyh.common.utils.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindException;
@@ -13,6 +20,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 控制器支持类
@@ -34,6 +42,18 @@ public abstract class BaseController {
         return "error/400";
     }
 
+    /**
+     * 设置请求分页数据
+     */
+    protected void setPage() {
+        PageModel page = PageParam.buildPageRequest();
+        Integer pageNo = page.getPageNo();
+        Integer pageSize = page.getPageSize();
+        if (Assert.isNotNull(pageNo) && Assert.isNotNull(pageSize)) {
+            String orderBy = SqlUtils.escapeOrderBySql(page.getOrderBy());
+            PageHelper.startPage(pageNo, pageSize, orderBy);
+        }
+    }
 
     /**
      * 初始化数据绑定

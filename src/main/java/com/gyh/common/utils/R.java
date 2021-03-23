@@ -1,7 +1,12 @@
 package com.gyh.common.utils;
 
+import com.github.pagehelper.PageInfo;
 import com.gyh.common.constant.HttpStatus;
+import com.gyh.common.persistence.page.PageModel;
+import com.gyh.common.persistence.page.PageParam;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -74,6 +79,13 @@ public class R extends HashMap<String, Object>{
 		r.put(KEY_CODE, HttpStatus.SC_OK);
 		r.put(KEY_DATA, data);
 		return r;
+	}
+
+	public static R page(List<?> list) {
+		PageModel pageResult = PageParam.buildPageRequest();
+		pageResult.setList(list);
+		pageResult.setTotal(new PageInfo(list).getTotal());
+		return ok(pageResult);
 	}
 
 	public static R ok(String key, Object obj) {
