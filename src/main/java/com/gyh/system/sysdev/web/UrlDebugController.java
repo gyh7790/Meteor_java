@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 /**
  * @author gyh
@@ -28,9 +29,10 @@ public class UrlDebugController extends BaseController {
     }
 
     @GetMapping("page")
-    public R getPage(UrlDebug urlDebug, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
-        Page<UrlDebug> page = urlDebugService.getPage(new Page<>(pageNo, pageSize), urlDebug);
-        return R.ok("page", page);
+    public R getPage(UrlDebug urlDebug) {
+        setPage();
+        List<UrlDebug> page = urlDebugService.findList(urlDebug);
+        return R.page(page);
     }
 
 

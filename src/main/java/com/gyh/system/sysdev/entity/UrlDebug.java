@@ -8,7 +8,7 @@ import com.gyh.system.sys.entity.DictData;
  * @author gyh
  * @Date 2020/11/21 12:10
  */
-public class UrlDebug extends BaseEntity<UrlDebug> {
+public class UrlDebug extends BaseEntity {
 
     private String name;
     private String urlId;

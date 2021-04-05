@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * @author gyh
  * @Date 2020/6/12 17:02
  */
-public class User extends BaseEntity<User> {
+public class User extends BaseEntity {
 
     private String loginName; // 登入名称
     private String nickName;    // 昵称

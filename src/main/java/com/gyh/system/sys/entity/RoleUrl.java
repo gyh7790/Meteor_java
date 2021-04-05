@@ -6,7 +6,7 @@ import com.gyh.common.persistence.base.BaseEntity;
  * @author gyh
  * @Date 2020/6/27 21:09
  */
-public class RoleUrl extends BaseEntity<RoleUrl> {
+public class RoleUrl extends BaseEntity {
 
     private String roleId;
     private String urlId;

@@ -11,7 +11,7 @@ import java.util.List;
  * @author guoyh
  * @version 2019年06月04日 15:29:44
  */
-public class Menu extends BaseEntity<Menu> {
+public class Menu extends BaseEntity {
 
     private String parentId;  //父级编号
     private String parentIds;  //所有父级编号

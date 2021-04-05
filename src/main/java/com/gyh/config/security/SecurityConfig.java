@@ -10,6 +10,7 @@ import com.gyh.system.sys.entity.Menu;
 import com.gyh.system.sys.entity.Role;
 import com.gyh.system.sys.entity.User;
 import com.gyh.system.sys.service.Impl.UserServiceImpl;
+import com.gyh.system.sys.service.LoginLogService;
 import com.gyh.system.sys.service.MenuService;
 import com.gyh.system.sys.service.UserService;
 import org.slf4j.Logger;
@@ -54,11 +55,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private SelfAccessDecisionManager selfAccessDecisionManager; //权限校验
 
-    @Autowired
+    @Resource
     private UserServiceImpl userService;
 
     @Resource
     private MenuService menuService;
+
+    @Resource
+    private LoginLogService loginLogService;
 
     /**
      * 静态 文件处理
@@ -144,6 +148,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         String token = JwtUtils.generateToken(jwtUser.getId(),jwtUser.getUsername(), map, true);
         logger.debug("token:"+token);
 
+        // 保存 登入日志
+        loginLogService.saveLoginLog(req, resp);
+
         resp.setContentType("application/json;charset=utf-8");
         PrintWriter out = resp.getWriter();
         out.write(JsonUtils.toStrByJson(R.ok("登录成功").put("token",JwtUtils.TOKEN_PREFIX+token).put("navList",menuList)));
@@ -153,6 +160,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // 认证 失败以后处理
     AuthenticationFailureHandler failureHandler = (req, resp, auth)->{
+        // 保存 登入日志
+        loginLogService.saveLoginLog(req, resp);
+
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
         PrintWriter out = resp.getWriter();

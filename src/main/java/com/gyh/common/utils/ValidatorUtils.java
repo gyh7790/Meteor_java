@@ -46,7 +46,8 @@ public class ValidatorUtils {
      * @return
      */
     public static Map<String,String> validateModel(Object obj) {//验证某一个对象
-        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(obj);//验证某个对象,，其实也可以只验证其中的某一个属性的
+        //验证某个对象,，其实也可以只验证其中的某一个属性的
+        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(obj);
         Iterator<ConstraintViolation<Object>> iter = constraintViolations.iterator();
 
         Map<String,String> mapList =  new HashMap<>();

@@ -1,5 +1,6 @@
 package com.gyh.system.sys.service.Impl;
 
+import com.gyh.common.persistence.model.Page;
 import com.gyh.common.persistence.service.BaseService;
 import com.gyh.common.tools.ListUtils;
 import com.gyh.system.sys.dao.UserDao;
@@ -78,6 +79,5 @@ public class UserServiceImpl extends BaseService<UserDao,User> implements UserDe
         }
         return row;
     }
-
 
 }

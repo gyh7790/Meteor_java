@@ -18,9 +18,9 @@
     </select>
 
     <insert id="insertList" parameterType="Menu">
-        REPLACE INTO sys_role_menu (role_id,menu_id) VALUES
+        INSERT INTO sys_role_menu (id,role_id,menu_id) VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{item.roleId},#{item.menuId})
+            (REPLACE(UUID(),'-',''),#{item.roleId},#{item.menuId})
         </foreach>
     </insert>
 

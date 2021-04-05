@@ -13,10 +13,4 @@ import org.springframework.stereotype.Service;
 @Service
 public class UrlDebugService extends BaseService<UrlDebugDao, UrlDebug> {
 
-
-    public Page<UrlDebug> getPage(Page<UrlDebug> page, UrlDebug urlDebug){
-        urlDebug.setPage(page);
-        page.setList(dao.findList(urlDebug));
-        return page;
-    }
 }

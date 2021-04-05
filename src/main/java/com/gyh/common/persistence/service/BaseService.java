@@ -16,7 +16,7 @@ import java.util.List;
  * @Date 2019/5/7 21:27
  */
 //@Transactional(readOnly = true)
-public abstract class BaseService<D extends CrudDao<T>,T extends BaseEntity<T>> extends AbstractService {
+public abstract class BaseService<D extends CrudDao<T>,T extends BaseEntity> extends AbstractService {
 
     /**
      * 持久层对象
@@ -49,12 +49,6 @@ public abstract class BaseService<D extends CrudDao<T>,T extends BaseEntity<T>> 
      */
     public List<T> findList(T entity) {
         return dao.findList(entity);
-    }
-
-    public Page<T> findPage(Page<T> page, T entity){
-        entity.setPage(page);
-        page.setList(dao.findList(entity));
-        return page;
     }
 
     /**

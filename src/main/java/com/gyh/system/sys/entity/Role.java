@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * @author gyh
  * @Date 2020/6/14 0:03
  */
-public class Role extends BaseEntity<Role> {
+public class Role extends BaseEntity {
 
     // 数据范围（1：所有数据；2：所在公司及以下数据；3：所在公司数据；4：所在部门及以下数据；5：所在部门数据；8：仅本人数据；9：按明细设置）
     public static final int DATA_SCOPE_ALL = 1;

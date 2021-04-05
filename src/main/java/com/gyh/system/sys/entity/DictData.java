@@ -7,7 +7,7 @@ import com.gyh.common.persistence.base.BaseEntity;
  * @author gyh
  * @Date 2020/7/3 13:17
  */
-public class DictData extends BaseEntity<DictData> {
+public class DictData extends BaseEntity {
 
     private String value;
     private String label;

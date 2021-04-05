@@ -127,9 +127,10 @@ public class MenuController extends BaseController {
      * @return
      */
     @GetMapping("page")
-    public R page(Menu menu, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
-        Page<Menu> page = menuService.findPage(new Page<Menu>(pageNo, pageSize),menu);
-        return R.ok("page", page);
+    public R page(Menu menu){
+        setPage();
+        List<Menu> page = menuService.findList(menu);
+        return R.page(page);
     }
 
 

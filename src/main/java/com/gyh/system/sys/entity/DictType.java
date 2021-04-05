@@ -9,7 +9,7 @@ import java.util.List;
  * @author gyh
  * @Date 2020/7/3 13:17
  */
-public class DictType extends BaseEntity<DictType> {
+public class DictType extends BaseEntity {
 
     private String name;
     private String type;

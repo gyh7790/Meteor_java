@@ -12,17 +12,40 @@ import java.util.Date;
  * @author gyh
  * @Date 2020/6/11 23:38
  */
-public abstract class BaseEntity<T> extends BaseRootEntity<T> {
+public abstract class BaseEntity extends BaseRootEntity {
 
-    protected String remarks;   //备注信息
-    protected User createBy;  //创建者
-    protected Date createDate;  //创建时间
-    protected User updateBy;  //修改者
-    protected Date updateDate;  //修改时间
-    protected Integer del;		//删除标记（0：正常；1：删除；）
+    /**
+     * 备注信息
+     */
+    protected String remarks;
+    /**
+     * 创建者
+     */
+    protected User createBy;
+    /**
+     * 创建时间
+     */
+    protected Date createDate;
+    /**
+     * 修改者
+     */
+    protected User updateBy;
+    /**
+     * 修改时间
+     */
+    protected Date updateDate;
+    /**
+     * 删除标记（0：正常；1：删除；）
+     */
+    protected Integer del;
 
-    // 模糊查询关键字
+    /**
+     * 模糊查询关键字
+     */
     protected String keyword;
+
+    protected Date startDate;
+    protected Date endDate;
 
     public BaseEntity() {
         super();
@@ -93,6 +116,24 @@ public abstract class BaseEntity<T> extends BaseRootEntity<T> {
 
     public void setKeyWord(String keyword) {
         this.keyword = keyword;
+    }
+
+    @JsonIgnore
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    @JsonIgnore
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     // 创建者 和 修改者有待完善

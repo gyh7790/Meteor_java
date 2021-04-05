@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gyh.system.sys.dao.LoginLogDao">
+
+
+
+
+    <insert id="insert">
+        INSERT INTO sys_login_log (id,login_name,login_ip,login_location,login_version,user_agent,device,`status`,oper_msg,oper_time)
+        VALUES (#{id},#{loginName},#{loginIp},#{loginLocation},#{version},#{userAgent},#{device},#{status},#{operMsg},#{operTime})
+    </insert>
+
+</mapper>

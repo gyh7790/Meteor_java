@@ -64,8 +64,6 @@ public interface UserService {
 
     List<User> findList(User user);
 
-    Page<User> findPage(Page<User> userPage, User user);
-
     int deleteById(String id);
 
     int insert(User user);

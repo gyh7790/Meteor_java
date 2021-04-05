@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
  * @author guoyh
  * @version 2019年05月27日 21:53:39
  */
-public class ScheduleJob extends BaseEntity<ScheduleJob> {
+public class ScheduleJob extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,6 +1,7 @@
 package com.gyh.system.sys.web;
 
 import com.gyh.common.log.annotation.Log;
+import com.gyh.common.log.enums.BusinessType;
 import com.gyh.common.persistence.model.Page;
 import com.gyh.common.persistence.web.BaseController;
 import com.gyh.common.tools.ListUtils;
@@ -36,7 +37,7 @@ public class UrlController extends BaseController {
      * @return
      */
     @GetMapping("page")
-    @Log(title = "url管理")
+    @Log(title = "url管理",businessType = BusinessType.SELECT)
     public R page(Url url){
         setPage();
         List<Url> list = urlService.findList(url);

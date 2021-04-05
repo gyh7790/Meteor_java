@@ -10,7 +10,10 @@ public enum BusinessType {
      * 其它
      */
     OTHER,
-
+    /**
+     * 查询
+     */
+    SELECT,
     /**
      * 新增
      */

@@ -59,11 +59,6 @@ public class ScheduleJobService extends BaseService<ScheduleJobDao, ScheduleJob>
     }
 
     @Override
-    public Page<ScheduleJob> findPage(Page<ScheduleJob> page, ScheduleJob scheduleJob) {
-        return super.findPage(page, scheduleJob);
-    }
-
-    @Override
     @Transactional(readOnly = false)
     public int save(ScheduleJob scheduleJob) {
         if (StringUtils.isEmpty(scheduleJob.getId())) {

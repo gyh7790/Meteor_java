@@ -1,7 +1,9 @@
 package com.gyh.system.sys.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.gyh.common.constant.Constant;
 import com.gyh.common.persistence.base.BaseEntity;
+import com.gyh.common.tools.Assert;
 
 import java.util.Date;
 
@@ -10,7 +12,7 @@ import java.util.Date;
  * @author gyh
  * @Date 2021/3/20 0:44
  */
-public class OperLog extends BaseEntity<OperLog> {
+public class OperLog extends BaseEntity {
 
     /** 操作模块 */
     private String title;
@@ -167,6 +169,10 @@ public class OperLog extends BaseEntity<OperLog> {
 
     public Integer getStatus() {
         return status;
+    }
+
+    public String getStatusStr() {
+        return Assert.isNotNull(status) && status == 0 ? "成功" : "失败";
     }
 
     public void setStatus(Integer status) {

@@ -2,7 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gyh.system.sys.dao.OperLogDao">
 
+    <sql id="operLogColumns">
+        a.id AS id,
+        a.title AS title,
+        a.business_type AS businessType,
+        a.method AS method,
+        a.request_method AS requestMethod,
+        a.operator_type AS operatorType,
+        a.oper_name AS operName,
+        a.dept_name AS deptName,
+        a.oper_url AS operUrl,
+        a.oper_ip AS operIp,
+        a.oper_location AS operLocation,
+        a.oper_param AS operParam,
+        a.json_result AS jsonResult,
+        a.`status` AS `status`,
+        a.error_msg AS errorMsg,
+        a.oper_time AS operTime
+    </sql>
 
+    <select id="findList" resultType="operLog">
+        select <include refid="operLogColumns"/>
+        from sys_oper_log a
+        <where>
+            <if test="title != null and title != ''">
+                AND a.title like concat(#{title},'%')
+            </if>
+            <if test="operName != null and operName != ''">
+                AND a.oper_name like concat(#{operName},'%')
+            </if>
+            <if test="businessType != null">
+                AND a.business_type = #{businessType}
+            </if>
+            <if test="requestMethod != null and requestMethod != ''">
+                AND a.request_method = #{requestMethod}
+            </if>
+            <if test="status != null">
+                AND a.`status` = #{status}
+            </if>
+            <if test="startDate != null">
+                AND Date(a.oper_time) &gt;= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND Date(a.oper_time) &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
 
     <insert id="insert">
         INSERT INTO sys_oper_log (id,title,business_type,method,request_method,operator_type,oper_name,

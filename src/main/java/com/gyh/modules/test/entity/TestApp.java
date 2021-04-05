@@ -60,4 +60,15 @@ public class TestApp extends BaseEntity {
     public void setDel(int del) {
         this.del = del;
     }
+
+    @Override
+    public String toString() {
+        return "TestApp{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", createDate=" + createDate +
+                ", del=" + del +
+                '}';
+    }
 }

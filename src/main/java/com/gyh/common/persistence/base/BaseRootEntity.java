@@ -10,12 +10,10 @@ import java.io.Serializable;
  * @author gyh
  * @Date 2020/6/12 17:04
  */
-public abstract class BaseRootEntity<T> implements Serializable {
+public abstract class BaseRootEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     protected String id;    // 编号
-
-    protected Page<T> page;
 
     public BaseRootEntity() {}
 
@@ -29,20 +27,6 @@ public abstract class BaseRootEntity<T> implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    @JsonIgnore
-    @XmlTransient //防止数据库中的字段和属性的映射
-    public Page<T> getPage() {
-        if (page == null) {
-            page = new Page<T>();
-        }
-        return page;
-    }
-
-    public Page<T> setPage(Page<T> page) {
-        this.page = page;
-        return page;
     }
 
     /**

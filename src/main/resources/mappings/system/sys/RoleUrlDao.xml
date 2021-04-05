@@ -9,9 +9,9 @@
     </sql>
 
     <insert id="insertList" parameterType="RoleUrl">
-        INSERT INTO sys_role_url (role_id,url_id) VALUES
+        INSERT INTO sys_role_url (id,role_id,url_id) VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{item.roleId},#{item.urlId})
+            (REPLACE(UUID(),'-',''),#{item.roleId},#{item.urlId})
         </foreach>
     </insert>
 

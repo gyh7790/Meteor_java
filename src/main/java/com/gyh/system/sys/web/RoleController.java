@@ -6,6 +6,7 @@ import com.gyh.common.utils.R;
 import com.gyh.system.sys.dto.RoleDto;
 import com.gyh.system.sys.dto.UserDto;
 import com.gyh.system.sys.entity.Role;
+import com.gyh.system.sys.entity.User;
 import com.gyh.system.sys.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,9 +46,10 @@ public class RoleController extends BaseController {
      * @return
      */
     @GetMapping("page")
-    public R page(Role role, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
-        Page<Role> page = roleService.findPage(new Page<Role>(pageNo, pageSize),role);
-        return R.ok("page", page);
+    public R page(Role role){
+        setPage();
+        List<Role> list = roleService.findList(role);
+        return R.page(list);
     }
 
     /**

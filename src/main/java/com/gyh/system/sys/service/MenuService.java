@@ -94,10 +94,10 @@ public class MenuService extends BaseService<MenuDao, Menu> {
             for (String roleId : roleIds) {
                 roleMenu = new RoleMenu(roleId,menu.getId());
                 list.add(roleMenu);
-                for (String menuId : StringUtils.split(menu.getParentIds(), SymEnum.COMMA.getValue())) {
-                    roleMenu = new RoleMenu(roleId,menuId);
-                    list.add(roleMenu);
-                }
+//                for (String menuId : StringUtils.split(menu.getParentIds(), SymEnum.COMMA.getValue())) {
+//                    roleMenu = new RoleMenu(roleId,menuId);
+//                    list.add(roleMenu);
+//                }
             }
             roleMenuService.insertList(list);
         }

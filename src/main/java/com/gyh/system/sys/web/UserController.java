@@ -1,16 +1,17 @@
 package com.gyh.system.sys.web;
 
 import com.gyh.common.persistence.model.Page;
+import com.gyh.common.persistence.web.BaseController;
 import com.gyh.common.tools.Assert;
 import com.gyh.common.utils.R;
 import com.gyh.system.sys.dto.UserDto;
+import com.gyh.system.sys.entity.DictType;
 import com.gyh.system.sys.entity.Url;
 import com.gyh.system.sys.entity.User;
 import com.gyh.system.sys.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.yaml.snakeyaml.constructor.BaseConstructor;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "sys/user")
-public class UserController extends BaseConstructor {
+public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
@@ -42,9 +43,10 @@ public class UserController extends BaseConstructor {
     }
 
     @GetMapping("page")
-    public R page(User user, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
-        Page<User> page = userService.findPage(new Page<User>(pageNo, pageSize),user);
-        return R.ok("page", page);
+    public R page(User user){
+        setPage();
+        List<User> list = userService.findList(user);
+        return R.page(list);
     }
 
     @GetMapping("verifyUserName")

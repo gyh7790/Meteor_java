@@ -49,8 +49,26 @@ public abstract class BaseController {
         PageModel page = PageParam.buildPageRequest();
         Integer pageNo = page.getPageNo();
         Integer pageSize = page.getPageSize();
+        String orderBy = SqlUtils.escapeOrderBySql(page.getOrderBy());
+        setPage(pageNo,pageSize,orderBy);
+    }
+
+    protected void setPage(String orderBy) {
+        PageModel page = PageParam.buildPageRequest();
+        Integer pageNo = page.getPageNo();
+        Integer pageSize = page.getPageSize();
+        setPage(pageNo,pageSize,orderBy);
+    }
+
+    /**
+     * 设置 分页
+     * @param pageNo 页码
+     * @param pageSize 每页数量
+     * @param orderBy 排序
+     */
+    protected void setPage(Integer pageNo,Integer pageSize,String orderBy) {
+        PageModel page = PageParam.buildPageRequest();
         if (Assert.isNotNull(pageNo) && Assert.isNotNull(pageSize)) {
-            String orderBy = SqlUtils.escapeOrderBySql(page.getOrderBy());
             PageHelper.startPage(pageNo, pageSize, orderBy);
         }
     }

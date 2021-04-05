@@ -1,5 +1,6 @@
 package com.gyh.common.persistence.page;
 
+import com.gyh.common.tools.Assert;
 import com.gyh.common.tools.StringUtils;
 
 import java.util.List;
@@ -42,20 +43,19 @@ public class PageModel {
     }
 
     public int getPageNo() {
-        return pageNo;
+        return pageNo ;
     }
 
-    public void setPageNo(int pageNo) {
-        this.pageNo = pageNo;
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = Assert.isNotNull(pageNo) ? pageNo : 1;
     }
 
-    public int getPageSize()
-    {
+    public int getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = Assert.isNotNull(pageSize) ? pageSize : 10;
     }
 
     public long getTotal() {

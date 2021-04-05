@@ -11,7 +11,7 @@ import java.util.List;
  * @author gyh
  * @Date 2020/6/26 19:25
  */
-public class Url extends BaseEntity<Url> {
+public class Url extends BaseEntity {
 
     private String menuId;
     private String code;
