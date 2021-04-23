@@ -2,6 +2,7 @@ package com.gyh.system.sys.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.gyh.common.constant.HttpStatus;
+import com.gyh.common.dto.IPDto;
 import com.gyh.common.tools.JsonUtils;
 import com.gyh.common.tools.StringUtils;
 import com.gyh.common.utils.HttpUtils;
@@ -24,7 +25,7 @@ public class IpUtils {
 
     private static final Logger log = LoggerFactory.getLogger(IpUtils.class);
 
-    private static final String LOCALHOST = "127.0.0.1";
+    public static final String LOCALHOST = "127.0.0.1";
 
     /**
      * 解析 IP 地址
@@ -232,12 +233,24 @@ public class IpUtils {
      * @return
      */
     public static String getAddrByIp(String ip){
+        IPDto ipDto = getAddressByIp(ip);
+        return ipDto.getAddress();
+    }
+
+    /**
+     * 根据 IP 获取所在地
+     * 使用 阿里云 组件
+     * @param ip
+     * @return
+     */
+    public static IPDto getAddressByIp(String ip){
         if (StringUtils.isEmpty(ip)) {
             return null;
         }
         if (LOCALHOST.equals(ip)) {
-            return "本机访问";
+            return new IPDto(ip);
         }
+        IPDto iPDto = new IPDto(ip);
         String host = "https://hcapi22.market.alicloudapi.com";
         String path = "/ip";
         String method = "GET";
@@ -258,15 +271,12 @@ public class IpUtils {
             int code = JsonObject.getInteger("ret");
             // 成功
             if (code == HttpStatus.SC_OK) {
-                JSONObject data = JsonObject.getJSONObject("data");
-                sb.append(data.getString("country") + ",");
-                sb.append(data.getString("city") + ",");
-                sb.append(data.getString("region"));
+                iPDto = JsonObject.getObject("data",IPDto.class);
             }
         } catch (Exception e) {
             log.error(e.getMessage(),e);
         }
-        return sb.toString();
+        return iPDto;
     }
 
     public static void main(String[] args) {
