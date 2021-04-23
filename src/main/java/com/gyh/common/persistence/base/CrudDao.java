@@ -10,7 +10,7 @@ import java.util.List;
  * @Date 2020/6/11 23:48
  */
 @Mapper
-public interface CrudDao<T> extends BaseDao {
+public interface CrudDao <T> extends BaseDao {
 
     /**
      * 获取单条数据

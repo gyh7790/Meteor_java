@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gyh.modules.app.dao.BannerDao">
+
+    <sql id="bannerColumns">
+        a.id AS "id",
+        a.title AS "title",
+        a.label AS "label",
+        a.video_code AS "videoCode",
+        a.img AS "img",
+        a.target AS "target",
+        a.type AS "type",
+        a.sort AS "sort",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.is_del AS "del"
+    </sql>
+
+    <select id="get" resultType="Banner">
+        SELECT
+        <include refid="bannerColumns"/>
+        FROM app_banner a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="Banner">
+        SELECT
+        <include refid="bannerColumns"/>
+        FROM app_banner a
+        <where>
+            a.is_del = ${DEL_NORMAL}
+            <if test="keyWord != null and keyWord != ''">
+                AND (a.video_code LIKE CONCAT('%',#{keyWord},'%')
+                OR a.title LIKE CONCAT('%',#{keyWord},'%')
+                OR a.label LIKE CONCAT('%',#{keyWord},'%'))
+            </if>
+            <if test="videoCode != null and videoCode != ''">
+                AND a.video_code = #{videoCode}
+            </if>
+            <if test="title != null and title != ''">
+                AND a.title = #{title}
+            </if>
+            <if test="label != null and label != ''">
+                AND a.label = #{label}
+            </if>
+            <if test="type != null">
+                AND a.type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAllList" resultType="Banner">
+        SELECT
+        <include refid="bannerColumns"/>
+        FROM app_banner a
+        WHERE a.is_del = ${DEL_NORMAL}
+        ORDER BY a.sort
+    </select>
+
+    <insert id="insert">
+        INSERT INTO app_banner (
+            id,
+            title,
+            label,
+            video_code,
+            img,
+            target,
+            type,
+            sort,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks,
+            is_del
+        ) VALUES (
+            #{id},
+            #{title},
+            #{label},
+            #{videoCode},
+            #{img},
+            #{target},
+            #{type},
+            #{sort},
+            #{createBy.id},
+            #{createDate},
+            #{updateBy.id},
+            #{updateDate},
+            #{remarks},
+            #{del}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE app_banner
+        <set>
+            <if test="videoCode != null and videoCode != ''">video_code = #{videoCode},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="label != null and label != ''">label = #{label},</if>
+            <if test="img != null and img != ''">img = #{img},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="target != null">target = #{target},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="updateBy != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteById" >
+        UPDATE app_banner SET is_del = ${DEL_DELETE} WHERE id = #{id}
+    </update>
+
+</mapper>

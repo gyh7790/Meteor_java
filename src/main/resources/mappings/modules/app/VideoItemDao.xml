@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gyh.modules.app.dao.VideoItemDao">
+
+    <sql id="videoItemColumns">
+        a.id AS "id",
+        a.video_id AS "videoId",
+        a.title AS "title",
+        a.label AS "label",
+        a.`on` AS "on",
+        a.img AS "img",
+        a.url AS "url",
+        a.type AS "type",
+        a.prefix_time AS "prefixTime",
+        a.suffix_time AS "suffixTime",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.is_del AS "del"
+    </sql>
+
+    <select id="get" resultType="VideoItem">
+        SELECT
+        <include refid="videoItemColumns"/>
+        FROM app_video_item a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="VideoItem">
+        SELECT
+        <include refid="videoItemColumns"/>
+        FROM app_video_item a
+        <where>
+            a.is_del = ${DEL_NORMAL}
+            <if test="keyWord != null and keyWord != ''">
+                AND (a.`title` LIKE CONCAT('%',#{keyWord},'%')
+                OR a.label LIKE CONCAT('%',#{keyWord},'%'))
+            </if>
+            <if test="on != null and on != ''">
+                AND a.`on` = #{on}
+            </if>
+            <if test="videoId != null and videoId != ''">
+                AND a.video_id = #{videoId}
+            </if>
+            <if test="title != null and title != ''">
+                AND a.title = #{title}
+            </if>
+            <if test="type != null">
+                AND a.type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAllList" resultType="VideoItem">
+        SELECT
+        <include refid="videoItemColumns"/>
+        FROM app_video_item a
+        WHERE a.is_del = ${DEL_NORMAL}
+        ORDER BY a.sort
+    </select>
+
+    <insert id="insert">
+        INSERT INTO app_video_item (
+            id,
+            video_id,
+            title,
+            label,
+            `on`,
+            url,
+            img,
+            type,
+            prefix_time,
+            suffix_time,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks,
+            is_del
+        ) VALUES (
+            #{id},
+            #{video_id},
+            #{title},
+            #{label},
+            #{`on`},
+            #{url},
+            #{img},
+            #{type},
+            #{prefixTime},
+            #{suffixTime},
+            #{createBy.id},
+            #{createDate},
+            #{updateBy.id},
+            #{updateDate},
+            #{remarks},
+            #{del}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE app_video_item
+        <set>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="label != null and label != ''">label = #{label},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="on != null">`on` = #{on},</if>
+            <if test="img != null and img != ''">img = #{img},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="prefixTime != null">prefix_time = #{prefixTime},</if>
+            <if test="suffixTime != null">suffix_time = #{suffixTime},</if>
+            <if test="intro != null">intro = #{intro},</if>
+            <if test="updateBy != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteById" >
+        UPDATE app_video_item SET is_del = ${DEL_DELETE} WHERE id = #{id}
+    </update>
+
+</mapper>

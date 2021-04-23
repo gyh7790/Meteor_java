@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gyh.modules.app.dao.TagDao">
+
+    <sql id="tagColumns">
+        a.id           AS "id",
+        a.lable        AS "lable",
+        a.sort         AS "sort",
+        a.type         AS "type",
+        a.`status`     AS "status",
+        a.create_by    AS "createBy.id",
+        a.create_date  AS "createDate",
+        a.update_by    AS "updateBy.id",
+        a.update_date  AS "updateDate",
+        a.remarks      AS "remarks",
+        a.is_del       AS "del"
+    </sql>
+
+    <select id="get" resultType="Tag">
+        SELECT
+        <include refid="tagColumns"/>
+        FROM app_tag a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="Tag">
+        SELECT
+        <include refid="tagColumns"/>
+        FROM app_tag a
+        <where>
+            a.is_del = ${DEL_NORMAL}
+            <if test="keyWord != null and keyWord != ''">
+                AND (a.lable LIKE CONCAT('%',#{keyWord},'%'))
+            </if>
+            <if test="label != null and label != ''">
+                AND a.label = #{label}
+            </if>
+            <if test="type != null">
+                AND a.type = #{type}
+            </if>
+            <if test="status != null">
+                AND a.`status` = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAllList" resultType="Tag">
+        SELECT
+        <include refid="tagColumns"/>
+        FROM app_tag a
+        WHERE a.is_del = ${DEL_NORMAL}
+        ORDER BY a.sort
+    </select>
+
+    <insert id="insert">
+        INSERT INTO app_tag (
+            id,
+            lable,
+            sort,
+            type,
+            `status`,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks,
+            is_del
+        ) VALUES (
+            #{id},
+            #{lable},
+            #{sort},
+            #{type},
+            #{`status`},
+            #{createBy.id},
+            #{createDate},
+            #{updateBy.id},
+            #{updateDate},
+            #{remarks},
+            #{del}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE app_tag
+        <set>
+            <if test="label != null and label != ''">label = #{label},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="status != null">`status` = #{status},</if>
+            <if test="updateBy != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteById" >
+        UPDATE app_tag SET is_del = ${DEL_DELETE} WHERE id = #{id}
+    </update>
+</mapper>

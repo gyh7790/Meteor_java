@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gyh.modules.app.dao.VideoDao">
+    <sql id="videoColumns">
+        a.id AS "id",
+        a.`code` AS "code",
+        a.title AS "title",
+        a.img AS "img",
+        a.area AS "area",
+        a.type AS "type",
+        a.launch_time AS "launchTime",
+        a.intro AS "intro",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.is_del AS "del"
+    </sql>
+
+    <select id="get" resultType="Video">
+        SELECT
+        <include refid="videoColumns"/>
+        FROM app_video a
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="Video">
+        SELECT
+        <include refid="videoColumns"/>
+        FROM app_video a
+        <where>
+            a.is_del = ${DEL_NORMAL}
+            <if test="keyWord != null and keyWord != ''">
+                AND (a.`code` LIKE CONCAT('%',#{keyWord},'%')
+                OR a.title LIKE CONCAT('%',#{keyWord},'%'))
+            </if>
+            <if test="code != null and code != ''">
+                AND a.`code` = #{code}
+            </if>
+            <if test="title != null and title != ''">
+                AND a.title = #{title}
+            </if>
+            <if test="type != null">
+                AND a.type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAllList" resultType="Video">
+        SELECT
+        <include refid="videoColumns"/>
+        FROM app_video a
+        WHERE a.is_del = ${DEL_NORMAL}
+        ORDER BY a.sort
+    </select>
+
+    <insert id="insert">
+        INSERT INTO app_video (
+            id,
+            `code`,
+            title,
+            img,
+            area,
+            type,
+            launch_time,
+            intro,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks,
+            is_del
+        ) VALUES (
+            #{id},
+            #{code},
+            #{title},
+            #{img},
+            #{area},
+            #{type},
+            #{launchTime},
+            #{intro},
+            #{createBy.id},
+            #{createDate},
+            #{updateBy.id},
+            #{updateDate},
+            #{remarks},
+            #{del}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE app_video
+        <set>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="img != null and img != ''">img = #{img},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="launchTime != null">launch_time = #{launchTime},</if>
+            <if test="intro != null">intro = #{intro},</if>
+            <if test="updateBy != null">update_by = #{updateBy.id},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteById" >
+        UPDATE app_video SET is_del = ${DEL_DELETE} WHERE id = #{id}
+    </update>
+
+</mapper>

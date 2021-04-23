@@ -59,7 +59,7 @@
     </select>
 
     <insert id="insert" parameterType="DictType" useGeneratedKeys="true" keyProperty="id">
-        REPLACE INTO sys_dict_type (
+        INSERT INTO sys_dict_type (
         id,
         name,
         type,

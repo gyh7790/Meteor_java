@@ -7,6 +7,7 @@ import com.gyh.common.utils.IdGen;
 import com.gyh.system.sys.entity.User;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author gyh
@@ -43,6 +44,12 @@ public abstract class BaseEntity extends BaseRootEntity {
      * 模糊查询关键字
      */
     protected String keyword;
+
+    protected Integer param;
+
+    protected List<String> strList;
+
+    protected List<Integer> intList;
 
     protected Date startDate;
     protected Date endDate;
@@ -116,6 +123,22 @@ public abstract class BaseEntity extends BaseRootEntity {
 
     public void setKeyWord(String keyword) {
         this.keyword = keyword;
+    }
+
+    public List<String> getStrList() {
+        return strList;
+    }
+
+    public void setStrList(List<String> strList) {
+        this.strList = strList;
+    }
+
+    public List<Integer> getIntList() {
+        return intList;
+    }
+
+    public void setIntList(List<Integer> intList) {
+        this.intList = intList;
     }
 
     @JsonIgnore
