@@ -4,6 +4,7 @@ import com.gyh.common.tools.ListUtils;
 import com.gyh.system.sys.dto.LoginUser;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -16,43 +17,11 @@ import java.util.stream.Stream;
  */
 public class RedisTest {
     public static void main(String[] arg){
-        LoginUser lu = null;
-        List<LoginUser> list = new ArrayList<>();
-        lu = new LoginUser();
-        lu.setUsername("AAA");
-        lu.setPassword("aaa");
-        lu.setCaptcha("123");
-        list.add(lu);
-        lu = new LoginUser();
-        lu.setUsername("BBB");
-        lu.setPassword("bbb");
-        lu.setCaptcha("456");
-        list.add(lu);
-        lu = new LoginUser();
-        lu.setUsername("CCC");
-        lu.setPassword("ccc");
-        lu.setCaptcha("741");
-        list.add(lu);
-        lu = new LoginUser();
-        lu.setUsername("AAA");
-        lu.setPassword("aaa");
-        lu.setCaptcha("852");
-        list.add(lu);
-        lu = new LoginUser();
-        lu.setUsername("CCC");
-        lu.setPassword("bbb");
-        lu.setCaptcha("963");
-        list.add(lu);
+        BigDecimal big = BigDecimal.valueOf(0.0); //设置BigDecimal初始值
+//        big.setScale(2);  // 保留1位小数，默认用四舍五入。
+//        big.setScale(1, BigDecimal.ROUND_DOWN);  // 直接删除多余的小数，2.3513直接被截断位2.3
 
-        LoginUser luser = new LoginUser();
-        luser.setUsername("CCC");
-        luser.setPassword("bbb");
-        luser.setCaptcha("963");
-
-
-        boolean ss = list.contains(luser);
-
-        System.out.println(ss);
+        System.out.println(big);
 
     }
 

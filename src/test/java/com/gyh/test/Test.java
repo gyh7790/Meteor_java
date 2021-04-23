@@ -25,5 +25,8 @@ public class Test {
             }
             System.out.println(str);
         }
+
+        double asd = 0.3;
+        System.out.println(asd);
     }
 }
