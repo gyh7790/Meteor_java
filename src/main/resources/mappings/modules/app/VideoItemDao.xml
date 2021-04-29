@@ -11,6 +11,7 @@
         a.img AS "img",
         a.url AS "url",
         a.type AS "type",
+        a.play_type_str AS "playTypeStr",
         a.prefix_time AS "prefixTime",
         a.suffix_time AS "suffixTime",
         a.create_by AS "createBy.id",

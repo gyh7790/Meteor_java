@@ -22,6 +22,8 @@ public class VideoItem extends BaseEntity {
 
     private Integer type;
 
+    private String playTypeStr;
+
     private Integer prefixTime;
 
     private Integer suffixTime;
@@ -80,6 +82,14 @@ public class VideoItem extends BaseEntity {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getPlayTypeStr() {
+        return playTypeStr;
+    }
+
+    public void setPlayTypeStr(String playTypeStr) {
+        this.playTypeStr = playTypeStr;
     }
 
     public Integer getPrefixTime() {
